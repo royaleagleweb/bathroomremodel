@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-navy: #0F172A;
+    --color-gold: #D4AF77;
+    --color-cream: #E2D8C3;
+    --color-charcoal: #111827;
+    --color-offwhite: #F8F4EC;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-offwhite text-navy font-sans text-body antialiased;
+  }
+
+  h1 {
+    @apply font-display text-h1;
+  }
+
+  h2 {
+    @apply font-display text-h2;
+  }
+
+  h3 {
+    @apply font-display text-h3;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-offwhite;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center h-[64px] px-8 rounded-2xl
+           bg-gold text-navy font-sans font-semibold text-caption uppercase
+           tracking-cta transition-all duration-300 ease-luxury
+           hover:scale-105 hover:shadow-gold-glow hover:bg-gold-hover
+           active:scale-95 disabled:opacity-40 disabled:pointer-events-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center h-[64px] px-8 rounded-2xl
+           border-2 border-navy text-navy bg-transparent font-sans font-semibold
+           text-caption uppercase tracking-cta transition-all duration-300 ease-luxury
+           hover:bg-gold hover:border-gold hover:text-navy hover:scale-105
+           active:scale-95 disabled:opacity-40 disabled:pointer-events-none;
+  }
+
+  .luxury-card {
+    @apply bg-white rounded-card shadow-card overflow-hidden
+           transition-all duration-300 ease-luxury
+           hover:scale-[1.02] hover:shadow-[0_12px_40px_rgba(15,23,42,0.15)];
+  }
+
+  .luxury-input {
+    @apply block w-full h-[64px] px-6 rounded-2xl border border-navy/15
+           bg-white text-navy text-body font-sans
+           placeholder:text-navy/40
+           focus:border-gold focus:ring-2 focus:ring-gold/40 focus:outline-none
+           transition-all duration-200;
+  }
+
+  .luxury-input-error {
+    @apply border-error focus:border-error focus:ring-error/30;
+  }
+
+  .label-above {
+    @apply block mb-2 text-caption font-medium text-navy/70 uppercase tracking-cta;
+  }
+
+  .section-pad {
+    @apply py-[80px] md:py-[120px];
+  }
+
+  .eyebrow {
+    @apply text-caption uppercase tracking-cta font-medium text-gold;
+  }
+}
