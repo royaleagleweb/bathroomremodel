@@ -49,5 +49,25 @@ no pointer · Error: `#EF4444` border + icon.
 npm install
 npm run dev        # http://localhost:3000
 npm run typecheck
-npm run build
+npm run build      # writes static site to ./out
 ```
+
+## Deploying to Cloudflare Pages
+
+The site is configured for Next.js **static export** (`output: "export"`), so
+every route is pre-rendered to HTML — no server required.
+
+1. In the Cloudflare dashboard, go to **Workers & Pages → Create → Pages → Connect to Git**.
+2. Authorize Cloudflare to access `royaleagleweb/bathroomremodel`.
+3. Select the branch you want to deploy (e.g. `main` or `claude/setup-design-system-ycvE9`).
+4. Use these build settings:
+
+   | Field | Value |
+   | --- | --- |
+   | Framework preset | **Next.js (Static HTML Export)** |
+   | Build command | `npm run build` |
+   | Build output directory | `out` |
+   | Node version | `20` (set `NODE_VERSION=20` env var if needed) |
+
+5. Save and deploy. Cloudflare will give you a `<project>.pages.dev` URL, and
+   rebuild automatically on every push to the selected branch.
