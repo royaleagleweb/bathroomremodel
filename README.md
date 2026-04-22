@@ -52,15 +52,32 @@ npm run typecheck
 npm run build      # writes static site to ./out
 ```
 
-## Deploying to Cloudflare Pages
+## Deploying to Cloudflare
 
 The site is configured for Next.js **static export** (`output: "export"`), so
 every route is pre-rendered to HTML — no server required.
 
-1. In the Cloudflare dashboard, go to **Workers & Pages → Create → Pages → Connect to Git**.
-2. Authorize Cloudflare to access `royaleagleweb/bathroomremodel`.
-3. Select the branch you want to deploy (e.g. `main` or `claude/setup-design-system-ycvE9`).
-4. Use these build settings:
+### Option A · Cloudflare Workers (recommended, git-connected)
+
+`wrangler.jsonc` in the repo root tells Workers to serve `./out` as static
+assets. In the dashboard:
+
+1. **Workers & Pages → Create → Workers → Connect to Git**.
+2. Pick `royaleagleweb/bathroomremodel` and the branch to deploy.
+3. Build settings:
+
+   | Field | Value |
+   | --- | --- |
+   | Build command | `npm run build` |
+   | Deploy command | `npx wrangler deploy` (default) |
+   | Root directory | `/` |
+
+4. Save and deploy. You'll get a `<project>.<account>.workers.dev` URL.
+
+### Option B · Cloudflare Pages (legacy)
+
+1. **Workers & Pages → Create → Pages → Connect to Git**, pick the repo/branch.
+2. Build settings:
 
    | Field | Value |
    | --- | --- |
@@ -69,5 +86,4 @@ every route is pre-rendered to HTML — no server required.
    | Build output directory | `out` |
    | Node version | `20` (set `NODE_VERSION=20` env var if needed) |
 
-5. Save and deploy. Cloudflare will give you a `<project>.pages.dev` URL, and
-   rebuild automatically on every push to the selected branch.
+3. Save and deploy for a `<project>.pages.dev` URL.
