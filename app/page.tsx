@@ -2,88 +2,37 @@ import Link from "next/link";
 import { ButtonLink } from "@/components/Button";
 import { ServiceCard } from "@/components/Card";
 import { TrustBar } from "@/components/TrustBar";
-
-const heroImage =
-  "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=2400&q=80";
+import { Hero } from "@/components/Hero";
+import { HERO, SERVICE_IMAGES, TEASER_IMAGES } from "@/lib/images";
 
 const services = [
   {
     title: "Full Primary Suite Remodel",
     price: "$62k",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
+    image: SERVICE_IMAGES.fullRemodel,
     description:
       "Studs-to-soul transformation. Italian tile, custom millwork, and spa-grade fixtures.",
   },
   {
     title: "Walk-In Shower & Wet Room",
     price: "$28k",
-    image:
-      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1600&q=80",
+    image: SERVICE_IMAGES.shower,
     description:
       "Frameless glass, radiant floors, and zero-threshold entries engineered for South Florida.",
   },
   {
     title: "Custom Vanity & Millwork",
     price: "$18k",
-    image:
-      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1600&q=80",
+    image: SERVICE_IMAGES.vanity,
     description:
       "Hand-selected stone, brushed brass, and cabinetry built for the humidity of the coast.",
   },
 ];
 
-const teaser = [
-  "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80",
-];
-
 export default function HomePage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-[92vh] flex items-end overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/40 to-navy/90" />
-
-        <div className="relative container mx-auto py-[120px] text-offwhite">
-          <p className="eyebrow text-gold">South Florida · Est. 2012</p>
-          <h1 className="mt-4 max-w-4xl text-offwhite text-[56px] md:text-[88px] leading-[1.02] font-display font-bold tracking-tight">
-            Luxury Bathrooms,
-            <br />
-            <span className="italic text-gold">Reimagined</span> in South Florida.
-          </h1>
-          <p className="mt-6 max-w-xl text-body text-offwhite/85">
-            Design-build studios across Miami, Ft Lauderdale, and West Palm.
-            97% of quotes answered in under 2 hours.
-          </p>
-
-          <div className="mt-10 flex flex-col sm:flex-row gap-4">
-            <ButtonLink href="/quote" withArrow>
-              Get Instant Quote
-            </ButtonLink>
-            <Link
-              href="/portfolio"
-              className="btn-secondary border-offwhite/60 text-offwhite hover:text-navy"
-            >
-              View Portfolio
-            </Link>
-          </div>
-
-          <div className="mt-16 flex flex-wrap gap-10 text-offwhite/80">
-            <Stat value="620+" label="Suites Completed" />
-            <Stat value="4 wk" label="Average Build" />
-            <Stat value="4.98★" label="Houzz Rating" />
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       <TrustBar />
 
@@ -134,16 +83,14 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-6">
-            {teaser.map((src, i) => (
+            {TEASER_IMAGES.map((src, i) => (
               <div
                 key={src}
-                className={`luxury-card h-[${
-                  i % 2 === 0 ? "360" : "280"
-                }px] relative`}
+                className="luxury-card relative"
                 style={{ height: i % 2 === 0 ? 360 : 280 }}
               >
                 <div
-                  className="absolute inset-0 bg-cover bg-center"
+                  className="absolute inset-0 bg-cover bg-center bg-cream"
                   style={{ backgroundImage: `url(${src})` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
@@ -186,7 +133,7 @@ export default function HomePage() {
           <div className="rounded-card bg-navy text-offwhite px-8 md:px-16 py-20 text-center relative overflow-hidden">
             <div
               className="absolute inset-0 opacity-25 bg-cover bg-center"
-              style={{ backgroundImage: `url(${heroImage})` }}
+              style={{ backgroundImage: `url(${HERO.desktop})` }}
             />
             <div className="relative">
               <p className="eyebrow text-gold">Transform in 4 weeks</p>
@@ -204,16 +151,5 @@ export default function HomePage() {
         </div>
       </section>
     </>
-  );
-}
-
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <p className="font-display text-[48px] leading-none text-gold">{value}</p>
-      <p className="mt-1 text-caption uppercase tracking-cta text-offwhite/70">
-        {label}
-      </p>
-    </div>
   );
 }

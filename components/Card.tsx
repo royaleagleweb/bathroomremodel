@@ -17,7 +17,7 @@ export function ServiceCard({
   return (
     <article className="luxury-card flex flex-col">
       <div
-        className="h-[280px] w-full bg-cover bg-center"
+        className="h-[280px] w-full bg-cover bg-center bg-cream"
         style={{ backgroundImage: `url(${image})` }}
         aria-hidden
       />

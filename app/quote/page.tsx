@@ -4,38 +4,15 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { Input, Textarea } from "@/components/Input";
 import { Button } from "@/components/Button";
+import { QUOTE_ROOMS } from "@/lib/images";
 
 type Step = 1 | 2 | 3 | 4;
 
 const rooms = [
-  {
-    key: "full",
-    title: "Full Remodel",
-    sub: "Studs up",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    key: "shower",
-    title: "Shower / Wet Room",
-    sub: "Frameless + tile",
-    image:
-      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    key: "vanity",
-    title: "Vanity & Millwork",
-    sub: "Stone + brass",
-    image:
-      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    key: "powder",
-    title: "Powder Room",
-    sub: "Statement",
-    image:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
-  },
+  { key: "full", title: "Full Remodel", sub: "Studs up", image: QUOTE_ROOMS.full },
+  { key: "shower", title: "Shower / Wet Room", sub: "Frameless + tile", image: QUOTE_ROOMS.shower },
+  { key: "vanity", title: "Vanity & Millwork", sub: "Stone + brass", image: QUOTE_ROOMS.vanity },
+  { key: "powder", title: "Powder Room", sub: "Statement", image: QUOTE_ROOMS.powder },
 ];
 
 const styles = [

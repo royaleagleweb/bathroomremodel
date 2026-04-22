@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { PORTFOLIO_IMAGES } from "@/lib/images";
 
 type City = "all" | "miami" | "ftlauderdale" | "westpalm";
 
@@ -21,8 +22,7 @@ const projects: Project[] = [
     cityLabel: "Miami · Coconut Grove",
     title: "Bayfront Primary Suite",
     scope: "Full remodel · 4 weeks",
-    image:
-      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[1],
     span: "tall",
   },
   {
@@ -31,8 +31,7 @@ const projects: Project[] = [
     cityLabel: "Ft Lauderdale · Las Olas",
     title: "Canal House Wet Room",
     scope: "Shower + steam · 3 weeks",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[2],
     span: "square",
   },
   {
@@ -41,8 +40,7 @@ const projects: Project[] = [
     cityLabel: "West Palm · El Cid",
     title: "Heritage Powder Room",
     scope: "Powder room · 10 days",
-    image:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[3],
     span: "wide",
   },
   {
@@ -51,8 +49,7 @@ const projects: Project[] = [
     cityLabel: "Miami · Coral Gables",
     title: "Mediterranean Dual Vanity",
     scope: "Vanity + lighting · 2 weeks",
-    image:
-      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[4],
     span: "tall",
   },
   {
@@ -61,8 +58,7 @@ const projects: Project[] = [
     cityLabel: "Ft Lauderdale · Rio Vista",
     title: "Cast-Iron Soaking Suite",
     scope: "Full remodel · 5 weeks",
-    image:
-      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[5],
     span: "square",
   },
   {
@@ -71,8 +67,7 @@ const projects: Project[] = [
     cityLabel: "Miami · Key Biscayne",
     title: "Ocean-Facing Spa",
     scope: "Full remodel · 6 weeks",
-    image:
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[6],
     span: "wide",
   },
   {
@@ -81,8 +76,7 @@ const projects: Project[] = [
     cityLabel: "West Palm · Palm Beach",
     title: "Antique Brass Vanity",
     scope: "Vanity · 2 weeks",
-    image:
-      "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[7],
     span: "tall",
   },
   {
@@ -91,8 +85,7 @@ const projects: Project[] = [
     cityLabel: "Miami · Brickell",
     title: "Penthouse Primary",
     scope: "Full remodel · 4 weeks",
-    image:
-      "https://images.unsplash.com/photo-1603825553321-ec62e4ca68a2?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[8],
     span: "square",
   },
   {
@@ -101,8 +94,7 @@ const projects: Project[] = [
     cityLabel: "Ft Lauderdale · Harbor Beach",
     title: "Yacht-Inspired Suite",
     scope: "Full remodel · 5 weeks",
-    image:
-      "https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[9],
     span: "tall",
   },
   {
@@ -111,8 +103,7 @@ const projects: Project[] = [
     cityLabel: "Miami · Pinecrest",
     title: "Garden Spa Retreat",
     scope: "Full remodel · 6 weeks",
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[10],
     span: "wide",
   },
   {
@@ -121,8 +112,7 @@ const projects: Project[] = [
     cityLabel: "West Palm · Worth Ave",
     title: "Parisian Powder Room",
     scope: "Powder room · 2 weeks",
-    image:
-      "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[11],
     span: "square",
   },
   {
@@ -131,8 +121,7 @@ const projects: Project[] = [
     cityLabel: "Miami · Surfside",
     title: "Oceanfront Wet Room",
     scope: "Shower + tub · 4 weeks",
-    image:
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80",
+    image: PORTFOLIO_IMAGES[12],
     span: "tall",
   },
 ];
@@ -215,7 +204,7 @@ export default function PortfolioPage() {
                   )}`}
                 >
                   <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-luxury group-hover:scale-110"
+                    className="absolute inset-0 bg-cover bg-center bg-cream transition-transform duration-700 ease-luxury group-hover:scale-110"
                     style={{ backgroundImage: `url(${p.image})` }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { ServiceCard } from "@/components/Card";
 import { Select } from "@/components/Input";
+import { SERVICE_IMAGES } from "@/lib/images";
 
 type Service = {
   title: string;
@@ -18,8 +19,7 @@ const services: Service[] = [
     title: "Full Primary Suite Remodel",
     priceValue: 62000,
     price: "$62k",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
+    image: SERVICE_IMAGES.fullRemodel,
     description:
       "Studs to soul: custom layout, imported stone, radiant floors, and spa lighting.",
     room: "full",
@@ -28,8 +28,7 @@ const services: Service[] = [
     title: "Powder Room Statement",
     priceValue: 22000,
     price: "$22k",
-    image:
-      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1600&q=80",
+    image: SERVICE_IMAGES.powderRoom,
     description:
       "Bold, tailored, unforgettable. Wall-upholstered powder rooms that stop guests mid-sentence.",
     room: "full",
@@ -38,8 +37,7 @@ const services: Service[] = [
     title: "Walk-In Shower & Wet Room",
     priceValue: 28000,
     price: "$28k",
-    image:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80",
+    image: SERVICE_IMAGES.shower,
     description:
       "Frameless glass, linear drains, thermostatic fixtures. Engineered for coastal humidity.",
     room: "shower",
@@ -48,8 +46,7 @@ const services: Service[] = [
     title: "Freestanding Soaking Tub",
     priceValue: 24000,
     price: "$24k",
-    image:
-      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1600&q=80",
+    image: SERVICE_IMAGES.soakingTub,
     description:
       "Sculptural resin or cast iron tubs, set against lit-stone feature walls.",
     room: "shower",
@@ -58,8 +55,7 @@ const services: Service[] = [
     title: "Custom Vanity & Millwork",
     priceValue: 18000,
     price: "$18k",
-    image:
-      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1600&q=80",
+    image: SERVICE_IMAGES.vanity,
     description:
       "Hand-selected stone tops, brushed brass hardware, humidity-stable cabinetry.",
     room: "vanity",
@@ -68,8 +64,7 @@ const services: Service[] = [
     title: "His + Hers Dual Vanity",
     priceValue: 32000,
     price: "$32k",
-    image:
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1600&q=80",
+    image: SERVICE_IMAGES.dualVanity,
     description:
       "Twin stations with tailored storage, integrated charging, and cove lighting.",
     room: "vanity",
@@ -108,10 +103,9 @@ export default function ServicesPage() {
     <>
       <section className="relative bg-navy text-offwhite overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-40"
+          className="absolute inset-0 bg-cover bg-center opacity-40 bg-charcoal"
           style={{
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=2400&q=80)",
+            backgroundImage: `url(${SERVICE_IMAGES.fullRemodel})`,
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-navy/40 to-navy" />
