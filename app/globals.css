@@ -45,6 +45,29 @@
            active:scale-95 disabled:opacity-40 disabled:pointer-events-none;
   }
 
+  .btn-pill {
+    @apply inline-flex items-center justify-center h-[56px] px-8 rounded-full
+           bg-gold text-white font-bold text-caption uppercase
+           tracking-cta transition-all duration-300 ease-luxury
+           hover:scale-[1.03] hover:shadow-gold-glow hover:bg-gold-hover
+           active:scale-95 disabled:opacity-40 disabled:pointer-events-none;
+  }
+
+  .btn-pill-outline {
+    @apply inline-flex items-center justify-center h-[56px] px-8 rounded-full
+           bg-transparent text-gold border-2 border-gold font-bold text-caption uppercase
+           tracking-cta transition-all duration-300 ease-luxury
+           hover:scale-[1.03] hover:bg-gold hover:text-white
+           active:scale-95;
+  }
+
+  .input-pill {
+    @apply block w-full h-[56px] px-6 rounded-full bg-white text-navy
+           font-sans text-body placeholder:text-navy/50
+           focus:outline-none focus:ring-2 focus:ring-gold
+           transition-all duration-200;
+  }
+
   .btn-secondary {
     @apply inline-flex items-center justify-center h-[64px] px-8 rounded-2xl
            border-2 border-navy text-navy bg-transparent font-sans font-semibold

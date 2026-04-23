@@ -38,13 +38,22 @@ const config: Config = {
           DEFAULT: "#E2D8C3",
           light: "#F8F4EC",
         },
-        charcoal: "#111827",
+        charcoal: {
+          DEFAULT: "#111827",
+          deep: "#0B0D11",
+        },
         offwhite: "#F8F4EC",
         error: "#EF4444",
       },
       fontFamily: {
         display: ["var(--font-playfair)", "Playfair Display", "serif"],
         sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
+        bold: [
+          "var(--font-montserrat)",
+          "Montserrat",
+          "system-ui",
+          "sans-serif",
+        ],
       },
       fontSize: {
         h1: ["48px", { lineHeight: "60px", fontWeight: "700" }],
