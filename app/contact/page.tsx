@@ -33,7 +33,7 @@ export default function ContactPage() {
 
   return (
     <section className="bg-offwhite">
-      <div className="container mx-auto py-[80px] md:py-[120px]">
+      <div className="container mx-auto py-14 sm:py-20 lg:py-[120px]">
         <div className="max-w-3xl">
           <p className="eyebrow">Contact</p>
           <h1 className="mt-4">
@@ -42,13 +42,13 @@ export default function ContactPage() {
           </h1>
         </div>
 
-        <div className="mt-16 grid lg:grid-cols-2 gap-12">
+        <div className="mt-10 sm:mt-12 lg:mt-16 grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left: map + info */}
           <div className="flex flex-col gap-8">
             <div className="luxury-card overflow-hidden">
               <iframe
                 title="Aurelia Bath Co. studio map"
-                className="w-full h-[380px] border-0"
+                className="w-full h-[280px] sm:h-[340px] lg:h-[380px] border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=-80.25%2C25.74%2C-80.13%2C25.82&layer=mapnik&marker=25.78%2C-80.19"

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const links = [
   { href: "/services", label: "Services" },
@@ -13,12 +13,20 @@ const links = [
 export function Nav() {
   const [open, setOpen] = useState(false);
 
+  // Lock body scroll when the mobile drawer is open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 bg-charcoal-deep/95 backdrop-blur-md border-b border-offwhite/5">
-      <div className="container mx-auto flex items-center justify-between h-[88px]">
+      <div className="container mx-auto flex items-center justify-between h-[68px] sm:h-[80px] lg:h-[88px]">
         <Link
           href="/"
-          className="font-display text-[26px] font-bold text-offwhite tracking-tight"
+          className="font-display text-[22px] sm:text-[26px] font-bold text-offwhite tracking-tight"
         >
           Aurelia<span className="text-gold">.</span>
         </Link>
@@ -36,54 +44,71 @@ export function Nav() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <Link href="/quote" className="btn-pill h-12 px-6">
+          <Link href="/quote" className="btn-pill h-11 px-5 text-[12px]">
             Get Free Quote
           </Link>
-          <a href="tel:+13055550134" className="btn-pill h-12 px-6">
+          <a href="tel:+13055550134" className="btn-pill h-11 px-5 text-[12px]">
             <PhoneIcon />
-            <span className="ml-2">Call Now</span>
+            <span className="ml-2">Call</span>
           </a>
         </div>
 
         <button
-          aria-label="Toggle menu"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="md:hidden relative w-10 h-10 grid place-items-center"
         >
-          <span className="block w-6 h-[2px] bg-offwhite" />
-          <span className="block w-6 h-[2px] bg-offwhite" />
-          <span className="block w-6 h-[2px] bg-offwhite" />
+          <span
+            className={`absolute block w-6 h-[2px] bg-offwhite transition-transform duration-300 ${
+              open ? "rotate-45" : "-translate-y-2"
+            }`}
+          />
+          <span
+            className={`absolute block w-6 h-[2px] bg-offwhite transition-opacity duration-200 ${
+              open ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            className={`absolute block w-6 h-[2px] bg-offwhite transition-transform duration-300 ${
+              open ? "-rotate-45" : "translate-y-2"
+            }`}
+          />
         </button>
       </div>
 
-      {open && (
-        <div className="md:hidden border-t border-offwhite/10 bg-charcoal-deep">
-          <div className="container mx-auto flex flex-col gap-4 py-6">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="text-caption uppercase tracking-cta font-bold text-offwhite/80"
-                onClick={() => setOpen(false)}
-              >
-                {l.label}
-              </Link>
-            ))}
-            <div className="flex gap-3 pt-2">
-              <Link
-                href="/quote"
-                className="btn-pill h-12 px-6"
-                onClick={() => setOpen(false)}
-              >
-                Get Free Quote
-              </Link>
-              <a href="tel:+13055550134" className="btn-pill h-12 px-6">
-                Call Now
-              </a>
-            </div>
+      {/* Mobile drawer */}
+      <div
+        className={`md:hidden fixed inset-x-0 top-[68px] bottom-0 bg-charcoal-deep/98 backdrop-blur-xl border-t border-offwhite/10 transition-all duration-300 ${
+          open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+        }`}
+      >
+        <div className="container mx-auto flex flex-col gap-1 py-6">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="block py-3 text-[20px] font-display text-offwhite hover:text-gold transition-colors border-b border-offwhite/5"
+              onClick={() => setOpen(false)}
+            >
+              {l.label}
+            </Link>
+          ))}
+          <div className="flex flex-col gap-3 pt-6">
+            <Link
+              href="/quote"
+              className="btn-pill"
+              onClick={() => setOpen(false)}
+            >
+              Get Free Quote
+            </Link>
+            <a href="tel:+13055550134" className="btn-pill-outline">
+              <PhoneIcon />
+              <span className="ml-2">Call (305) 555-0134</span>
+            </a>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

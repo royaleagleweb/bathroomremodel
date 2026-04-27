@@ -109,7 +109,7 @@ export default function ServicesPage() {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-navy/40 to-navy" />
-        <div className="relative container mx-auto py-[120px]">
+        <div className="relative container mx-auto py-16 sm:py-24 lg:py-[120px]">
           <p className="eyebrow text-gold">Services</p>
           <h1 className="mt-4 max-w-3xl">
             From a studs-up remodel to a single statement vanity — every suite
@@ -120,7 +120,7 @@ export default function ServicesPage() {
 
       <section className="section-pad bg-offwhite">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl">
+          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl">
             <Select
               id="room"
               label="Filter by room"
@@ -147,7 +147,7 @@ export default function ServicesPage() {
             </Select>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="mt-10 lg:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {filtered.map((s) => (
               <ServiceCard key={s.title} {...s} />
             ))}

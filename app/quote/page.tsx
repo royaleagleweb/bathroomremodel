@@ -75,7 +75,7 @@ export default function QuotePage() {
 
   return (
     <section className="bg-offwhite">
-      <div className="container mx-auto py-[80px] md:py-[120px] max-w-5xl">
+      <div className="container mx-auto py-14 sm:py-20 lg:py-[120px] max-w-5xl">
         {/* Progress */}
         <div className="flex items-center justify-between mb-4">
           <p className="eyebrow">
@@ -101,7 +101,7 @@ export default function QuotePage() {
                 consultation.
               </p>
 
-              <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="mt-8 sm:mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
                 {rooms.map((r) => {
                   const active = room === r.key;
                   return (
@@ -115,11 +115,11 @@ export default function QuotePage() {
                       }`}
                     >
                       <div
-                        className="h-36 bg-cover bg-center"
+                        className="h-28 sm:h-36 bg-cover bg-center"
                         style={{ backgroundImage: `url(${r.image})` }}
                       />
-                      <div className="p-4">
-                        <p className="font-display text-[20px]">{r.title}</p>
+                      <div className="p-3 sm:p-4">
+                        <p className="font-display text-[17px] sm:text-[20px]">{r.title}</p>
                         <p className="text-caption uppercase tracking-cta text-navy/60 mt-1">
                           {r.sub}
                         </p>
@@ -155,14 +155,14 @@ export default function QuotePage() {
                 Instagram screenshot, anything.
               </p>
 
-              <div className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="mt-8 sm:mt-10 grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                 {styles.map((s) => {
                   const active = style === s.key;
                   return (
                     <button
                       key={s.key}
                       onClick={() => setStyle(s.key)}
-                      className={`h-[72px] rounded-2xl border-2 px-6 text-left font-display text-[20px] transition-all ${
+                      className={`h-[64px] sm:h-[72px] rounded-2xl border-2 px-4 sm:px-6 text-left font-display text-[17px] sm:text-[20px] transition-all ${
                         active
                           ? "border-gold bg-gold/10"
                           : "border-navy/15 hover:border-gold"

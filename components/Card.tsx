@@ -17,17 +17,17 @@ export function ServiceCard({
   return (
     <article className="luxury-card flex flex-col">
       <div
-        className="h-[280px] w-full bg-cover bg-center bg-cream"
+        className="h-[220px] sm:h-[260px] lg:h-[280px] w-full bg-cover bg-center bg-cream"
         style={{ backgroundImage: `url(${image})` }}
         aria-hidden
       />
-      <div className="p-6 flex flex-col flex-1">
+      <div className="p-5 sm:p-6 flex flex-col flex-1">
         <p className="eyebrow">Starting at {price}</p>
         <h3 className="mt-2 text-h3">{title}</h3>
         <p className="mt-3 text-body text-navy/70 flex-1">{description}</p>
         <Link
           href={href}
-          className="mt-6 inline-flex items-center text-caption uppercase tracking-cta font-semibold text-navy hover:text-gold transition-colors"
+          className="mt-5 sm:mt-6 inline-flex items-center text-caption uppercase tracking-cta font-semibold text-navy hover:text-gold transition-colors"
         >
           Book Now
           <span className="ml-2">→</span>

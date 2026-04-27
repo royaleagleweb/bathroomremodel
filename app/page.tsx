@@ -55,7 +55,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="mt-10 lg:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {services.map((s) => (
               <ServiceCard key={s.title} {...s} />
             ))}
@@ -82,21 +82,24 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="mt-10 lg:mt-12 grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5 md:gap-6">
             {TEASER_IMAGES.map((src, i) => (
               <div
                 key={src}
-                className="luxury-card relative"
-                style={{ height: i % 2 === 0 ? 360 : 280 }}
+                className={`luxury-card relative ${
+                  i % 2 === 0
+                    ? "h-[200px] sm:h-[280px] md:h-[360px]"
+                    : "h-[160px] sm:h-[220px] md:h-[280px]"
+                }`}
               >
                 <div
                   className="absolute inset-0 bg-cover bg-center bg-cream"
                   style={{ backgroundImage: `url(${src})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
-                  <div className="p-6 text-offwhite">
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent opacity-90 md:opacity-0 md:hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="p-4 sm:p-6 text-offwhite">
                     <p className="eyebrow text-gold">Coral Gables</p>
-                    <p className="mt-1 font-display text-[22px]">
+                    <p className="mt-1 font-display text-[16px] sm:text-[20px] md:text-[22px]">
                       Primary Suite No. {i + 1}
                     </p>
                   </div>
@@ -109,7 +112,7 @@ export default function HomePage() {
 
       {/* Process strip */}
       <section className="bg-navy text-offwhite section-pad">
-        <div className="container mx-auto grid md:grid-cols-4 gap-10">
+        <div className="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
           {[
             { step: "01", title: "Consult", body: "A designer visits your home within 48 hours." },
             { step: "02", title: "Design", body: "3D renderings + fixed fixture schedule in 7 days." },
@@ -117,10 +120,10 @@ export default function HomePage() {
             { step: "04", title: "Delight", body: "Walkthrough, 5-year craftsmanship warranty." },
           ].map((p) => (
             <div key={p.step}>
-              <p className="font-display text-[52px] text-gold leading-none">
+              <p className="font-display text-[40px] sm:text-[48px] lg:text-[52px] text-gold leading-none">
                 {p.step}
               </p>
-              <h3 className="mt-4 text-offwhite">{p.title}</h3>
+              <h3 className="mt-3 sm:mt-4 text-offwhite">{p.title}</h3>
               <p className="mt-2 text-body text-offwhite/70">{p.body}</p>
             </div>
           ))}
@@ -130,7 +133,7 @@ export default function HomePage() {
       {/* CTA */}
       <section className="section-pad bg-offwhite">
         <div className="container mx-auto">
-          <div className="rounded-card bg-navy text-offwhite px-8 md:px-16 py-20 text-center relative overflow-hidden">
+          <div className="rounded-card bg-navy text-offwhite px-6 sm:px-10 md:px-16 py-14 sm:py-16 lg:py-20 text-center relative overflow-hidden">
             <div
               className="absolute inset-0 opacity-25 bg-cover bg-center"
               style={{ backgroundImage: `url(${HERO.desktop})` }}
@@ -141,7 +144,7 @@ export default function HomePage() {
                 Your quote, answered in under two hours — no hidden fees, no
                 pushy sales.
               </h2>
-              <div className="mt-10 flex justify-center">
+              <div className="mt-8 sm:mt-10 flex justify-center">
                 <ButtonLink href="/quote" withArrow>
                   Start My Quote
                 </ButtonLink>

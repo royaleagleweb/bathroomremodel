@@ -33,12 +33,12 @@ const columns = [
 export function Footer() {
   return (
     <footer className="bg-navy text-offwhite">
-      <div className="container mx-auto py-[80px]">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div>
+      <div className="container mx-auto py-14 sm:py-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 md:gap-12">
+          <div className="col-span-2 md:col-span-1">
             <Link
               href="/"
-              className="font-display text-[28px] font-bold tracking-tight"
+              className="font-display text-[24px] sm:text-[28px] font-bold tracking-tight"
             >
               Aurelia<span className="text-gold">.</span>
             </Link>
@@ -78,7 +78,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 pt-6 border-t border-offwhite/10 flex flex-col md:flex-row justify-between gap-3 text-caption text-offwhite/60">
+        <div className="mt-10 md:mt-12 pt-6 border-t border-offwhite/10 flex flex-col md:flex-row justify-between gap-3 text-caption text-offwhite/60">
           <p>© {new Date().getFullYear()} Aurelia Bath Co. All rights reserved.</p>
           <p>Licensed & Insured · FL CGC-1529384</p>
         </div>

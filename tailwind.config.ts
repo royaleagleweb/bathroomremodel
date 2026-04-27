@@ -16,9 +16,11 @@ const config: Config = {
     container: {
       center: true,
       padding: {
-        DEFAULT: "24px",
+        DEFAULT: "20px",
+        sm: "32px",
         md: "48px",
-        lg: "80px",
+        lg: "64px",
+        xl: "80px",
       },
       screens: {
         "2xl": "1440px",
@@ -56,10 +58,11 @@ const config: Config = {
         ],
       },
       fontSize: {
-        h1: ["48px", { lineHeight: "60px", fontWeight: "700" }],
-        h2: ["36px", { lineHeight: "44px", fontWeight: "700" }],
-        h3: ["28px", { lineHeight: "36px", fontWeight: "700" }],
-        body: ["18px", { lineHeight: "28px", fontWeight: "400" }],
+        // Fluid type — scales between mobile and desktop without breakpoints
+        h1: ["clamp(2rem, 5.2vw, 4.5rem)", { lineHeight: "1.05", fontWeight: "700", letterSpacing: "-0.02em" }],
+        h2: ["clamp(1.625rem, 3.4vw, 2.75rem)", { lineHeight: "1.15", fontWeight: "700", letterSpacing: "-0.015em" }],
+        h3: ["clamp(1.25rem, 2vw, 1.875rem)", { lineHeight: "1.25", fontWeight: "700" }],
+        body: ["clamp(1rem, 1.05vw, 1.125rem)", { lineHeight: "1.6", fontWeight: "400" }],
         caption: ["14px", { lineHeight: "20px", fontWeight: "500" }],
       },
       letterSpacing: {

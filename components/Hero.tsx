@@ -5,53 +5,56 @@ import { HERO } from "@/lib/images";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-charcoal-deep">
-      {/* Photo background with dark overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-35"
-        style={{ backgroundImage: `url(${HERO.desktop})` }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-charcoal-deep via-charcoal-deep/85 to-charcoal-deep/50" />
-      <div className="absolute inset-0 bg-gradient-to-b from-charcoal-deep/70 via-transparent to-charcoal-deep" />
+    <section className="relative isolate overflow-hidden bg-charcoal-deep">
+      {/* Background photo with Ken-Burns drift */}
+      <div className="absolute inset-0 -z-10">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-55 animate-hero-drift"
+          style={{ backgroundImage: `url(${HERO.desktop})` }}
+        />
+        {/* Cinematic overlays — darken left for legibility, let image show on the right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal-deep via-charcoal-deep/80 to-charcoal-deep/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal-deep/40 via-transparent to-charcoal-deep" />
+        {/* Soft gold vignette */}
+        <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-gold/15 blur-[120px]" />
+      </div>
 
-      <div className="relative container mx-auto py-[80px] md:py-[120px] grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-12 items-center">
+      <div className="container mx-auto pt-12 pb-14 sm:pt-16 sm:pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-10 lg:gap-14 items-center">
         {/* Left: pitch */}
-        <div className="text-offwhite">
-          <h1 className="font-bold text-offwhite text-[40px] md:text-[64px] lg:text-[72px] leading-[0.98] uppercase tracking-tight">
-            #1 Luxury <br />
-            Bathroom <br />
-            <span className="relative inline-block">
+        <div className="text-offwhite max-w-2xl">
+          <p className="eyebrow text-gold animate-fade-up">
+            South Florida · Established 2014
+          </p>
+
+          <h1 className="mt-4 font-display text-h1 text-offwhite uppercase animate-fade-up delay-150">
+            #1 Luxury <br className="hidden sm:block" />
+            Bathroom <span className="relative inline-block">
               Remodeler
               <Brushstroke />
-            </span>
-            <br />
-            South Florida
+            </span>{" "}
+            in South Florida
           </h1>
 
-          <h2 className="mt-10 font-bold text-offwhite text-[22px] md:text-[26px] uppercase tracking-tight">
-            <span className="relative inline-block">
-              Craftsmanship Built on
-              <br />
-              Trust &amp; Design
-              <Brushstroke />
-            </span>
-          </h2>
+          <p className="mt-7 text-body text-offwhite/85 max-w-xl animate-fade-up delay-300">
+            Studs-to-soul transformations across Miami, Ft Lauderdale, and West
+            Palm — designed in days, built in weeks, guaranteed for years.
+          </p>
 
-          <ul className="mt-10 space-y-3">
+          <ul className="mt-7 space-y-3 animate-fade-up delay-300">
             <CheckItem>
-              Locally Serving <strong>Miami, Ft Lauderdale, &amp; West Palm</strong>
+              <strong>620+ Suites Built</strong> · Customer-First Design
             </CheckItem>
             <CheckItem>
-              Customer-First Design Approach · <strong>620+ Suites Built</strong>
+              <strong>Price-Lock Guarantee</strong> · 5-Year Warranty
             </CheckItem>
             <CheckItem>
-              Price-Lock Guarantee · <strong>5-Year Craftsmanship Warranty</strong>
+              <strong>4-Week Average Build</strong> · Fixed Schedule
             </CheckItem>
           </ul>
 
           <RatingBadges />
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 animate-fade-up delay-450">
             <a href="#quote-form" className="btn-pill">
               Book a Free Consultation
             </a>
@@ -62,17 +65,23 @@ export function Hero() {
         </div>
 
         {/* Right: lead capture form card */}
-        <div id="quote-form">
+        <div id="quote-form" className="animate-fade-up delay-300">
           <LeadForm />
         </div>
       </div>
+
+      {/* Decorative gold rule */}
+      <div
+        aria-hidden
+        className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"
+      />
     </section>
   );
 }
 
 function CheckItem({ children }: { children: React.ReactNode }) {
   return (
-    <li className="flex items-start gap-3 text-body text-offwhite">
+    <li className="flex items-start gap-3 text-body text-offwhite/90">
       <span className="shrink-0 mt-1 text-gold">
         <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" aria-hidden>
           <path
@@ -91,7 +100,7 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 
 function RatingBadges() {
   return (
-    <div className="mt-8 inline-flex items-center gap-4 rounded-2xl bg-offwhite/5 border border-offwhite/10 px-4 py-3">
+    <div className="mt-7 inline-flex items-center gap-4 rounded-2xl bg-offwhite/5 border border-offwhite/10 px-4 py-3 animate-fade-up delay-450">
       <div className="flex -space-x-2">
         <BrandBadge kind="facebook" />
         <BrandBadge kind="google" />
@@ -144,7 +153,7 @@ function Brushstroke() {
       viewBox="0 0 300 24"
       preserveAspectRatio="none"
       aria-hidden
-      className="absolute left-0 right-0 -bottom-4 w-full h-4 text-gold"
+      className="absolute left-0 right-0 -bottom-2 sm:-bottom-3 w-full h-3 sm:h-4 text-gold"
     >
       <path
         d="M4 16 C 40 4, 80 22, 140 10 S 240 4, 296 14"
@@ -191,7 +200,7 @@ function LeadForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-3xl bg-offwhite/5 border border-gold/40 p-8 backdrop-blur-md">
+      <div className="rounded-3xl bg-offwhite/5 border border-gold/40 p-7 sm:p-8 backdrop-blur-md">
         <div className="w-14 h-14 rounded-full bg-gold/20 text-gold grid place-items-center">
           <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" aria-hidden>
             <path
@@ -203,7 +212,7 @@ function LeadForm() {
             />
           </svg>
         </div>
-        <h3 className="mt-5 font-bold text-offwhite text-[28px] uppercase tracking-tight">
+        <h3 className="mt-5 font-display text-h3 text-offwhite uppercase">
           You&apos;re Booked, {form.name.split(" ")[0]}.
         </h3>
         <p className="mt-3 text-body text-offwhite/80">
@@ -215,9 +224,9 @@ function LeadForm() {
   }
 
   return (
-    <div className="rounded-3xl bg-offwhite/5 border border-offwhite/15 p-8 md:p-10 backdrop-blur-md">
-      <h3 className="text-center font-bold text-offwhite text-[26px] md:text-[30px] uppercase tracking-tight">
-        Get Your Free <span className="text-gold">Bathroom Quote!</span>
+    <div className="rounded-3xl bg-offwhite/5 border border-offwhite/15 p-6 sm:p-8 lg:p-10 backdrop-blur-md shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
+      <h3 className="text-center font-display text-[22px] sm:text-[26px] lg:text-[28px] text-offwhite uppercase tracking-tight">
+        Get Your Free <span className="text-gold">Bathroom Quote</span>
       </h3>
       <p className="mt-2 text-center text-caption text-offwhite/60">
         We&apos;ll never share your info with anyone.
@@ -256,22 +265,24 @@ function LeadForm() {
           onChange={(v) => setForm((f) => ({ ...f, phone: v }))}
           error={errors.phone}
         />
-        <PillInput
-          placeholder="ZIP Code"
-          inputMode="numeric"
-          value={form.zip}
-          onChange={(v) => setForm((f) => ({ ...f, zip: v }))}
-          error={errors.zip}
-        />
-        <PillInput
-          placeholder="Email"
-          type="email"
-          value={form.email}
-          onChange={(v) => setForm((f) => ({ ...f, email: v }))}
-          error={errors.email}
-        />
+        <div className="grid grid-cols-2 gap-3">
+          <PillInput
+            placeholder="ZIP Code"
+            inputMode="numeric"
+            value={form.zip}
+            onChange={(v) => setForm((f) => ({ ...f, zip: v }))}
+            error={errors.zip}
+          />
+          <PillInput
+            placeholder="Email"
+            type="email"
+            value={form.email}
+            onChange={(v) => setForm((f) => ({ ...f, email: v }))}
+            error={errors.email}
+          />
+        </div>
 
-        <button type="submit" className="btn-pill mt-2 h-[60px] text-[15px]">
+        <button type="submit" className="btn-pill mt-2 h-[56px] sm:h-[60px] text-[15px]">
           Book a Free Consultation
         </button>
       </form>

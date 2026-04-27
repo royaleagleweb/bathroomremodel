@@ -1,24 +1,39 @@
-# How to upload your photos
+# Where to put your photos
 
-## The fastest way (no command line)
+There are two ways to add photos. Pick whichever fits.
 
-1. Open this folder on GitHub: **https://github.com/royaleagleweb/bathroomremodel/tree/main/public/images**
-2. Click the subfolder you want (`hero/`, `services/`, `portfolio/`, or `team/`).
-3. Click **Add file → Upload files** near the top right.
-4. Drag your photos in from Finder / File Explorer.
-5. Leave the commit message alone and click **Commit changes**.
-6. Cloudflare will auto-rebuild in 1–2 minutes — refresh the site.
+---
 
-## Filename requirements
+## OPTION 1 — Drop-in gallery (easiest, no renaming)
 
-Every filename used by the site is listed below. Upload your photos with these exact names (or rename them after dragging in on GitHub — click a file then the pencil icon → change the name).
+Got a lot of photos and just want them on the site? Use this.
 
-If you have different filenames and don't want to rename, open `/lib/images.ts` and change the paths on the right-hand side to match what you uploaded.
+1. Open this folder on GitHub: **https://github.com/royaleagleweb/bathroomremodel/tree/main/public/images/gallery**
+2. Click **Add file → Upload files** (top right).
+3. Drag in as many photos as you want — any filenames are fine.
+4. Click **Commit changes**.
+5. Cloudflare rebuilds in ~1–2 minutes. Open **/portfolio/** — your photos now appear at the bottom of the page in a clean grid.
+
+**Tips for `gallery/`**
+- Filenames are sorted alphabetically. Prefix with `01-`, `02-`… to control order (e.g. `01-coral-gables-suite.jpg`).
+- The filename (minus the number prefix and dashes) is shown as the caption on hover, so name them descriptively: `02-bayfront-primary-suite.jpg` becomes "Bayfront Primary Suite".
+
+---
+
+## OPTION 2 — Curated slots (controls hero, services, featured portfolio)
+
+Some images are referenced by exact filename so the layout, captions and pricing all line up. Replace these with your own photos using the names below.
+
+How:
+1. Open the folder on GitHub (links below), click **Add file → Upload files**, drag yours in.
+2. If your filename is different, click the uploaded file → pencil icon → rename to match the list.
 
 ### `hero/` — homepage hero background
-- `main.jpg` — main hero image, landscape, 2400×1600 or larger recommended
+https://github.com/royaleagleweb/bathroomremodel/tree/main/public/images/hero
+- `main.jpg` — landscape, 2400×1600 or larger recommended
 
-### `services/` — one per service card (square / portrait, 1600×1600 or larger)
+### `services/` — one per service card (square / portrait, 1600×1600+)
+https://github.com/royaleagleweb/bathroomremodel/tree/main/public/images/services
 - `full-remodel.jpg`
 - `powder-room.jpg`
 - `shower.jpg`
@@ -26,7 +41,8 @@ If you have different filenames and don't want to rename, open `/lib/images.ts` 
 - `vanity.jpg`
 - `dual-vanity.jpg`
 
-### `portfolio/` — 12 slots for the portfolio page
+### `portfolio/` — 12 featured slots on the portfolio page
+https://github.com/royaleagleweb/bathroomremodel/tree/main/public/images/portfolio
 - `01-bayfront-primary-suite.jpg`
 - `02-canal-house-wet-room.jpg`
 - `03-heritage-powder-room.jpg`
@@ -40,12 +56,17 @@ If you have different filenames and don't want to rename, open `/lib/images.ts` 
 - `11-parisian-powder-room.jpg`
 - `12-oceanfront-wet-room.jpg`
 
-### `team/` — designer avatars for social proof (square, 600×600)
+### `team/` — designer avatars (square, 600×600)
 - `designer-1.jpg`
 - `designer-2.jpg`
 - `designer-3.jpg`
 
-## Formats & sizes
+> Prefer not to rename? Open `/lib/images.ts` and change the paths on the right-hand side to match what you uploaded.
 
-- JPG or WebP for photos. PNG only if you need transparency.
-- Keep each file under **2 MB**. Compress at https://squoosh.app if needed — this matters for page-speed scores.
+---
+
+## Formats & sizes (both options)
+
+- **JPG or WebP** for photos. PNG only if you need transparency.
+- Keep each file **under 2 MB**. Compress at https://squoosh.app — page-speed scores depend on it.
+- Photos look best at **landscape 3:2** (hero) or **portrait 4:5** (gallery / cards).

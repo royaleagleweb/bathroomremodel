@@ -38,7 +38,7 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center h-[64px] px-8 rounded-2xl
+    @apply inline-flex items-center justify-center h-[56px] sm:h-[64px] px-6 sm:px-8 rounded-2xl
            bg-gold text-navy font-sans font-semibold text-caption uppercase
            tracking-cta transition-all duration-300 ease-luxury
            hover:scale-105 hover:shadow-gold-glow hover:bg-gold-hover
@@ -46,7 +46,7 @@
   }
 
   .btn-pill {
-    @apply inline-flex items-center justify-center h-[56px] px-8 rounded-full
+    @apply inline-flex items-center justify-center h-[52px] sm:h-[56px] px-6 sm:px-8 rounded-full
            bg-gold text-white font-bold text-caption uppercase
            tracking-cta transition-all duration-300 ease-luxury
            hover:scale-[1.03] hover:shadow-gold-glow hover:bg-gold-hover
@@ -54,7 +54,7 @@
   }
 
   .btn-pill-outline {
-    @apply inline-flex items-center justify-center h-[56px] px-8 rounded-full
+    @apply inline-flex items-center justify-center h-[52px] sm:h-[56px] px-6 sm:px-8 rounded-full
            bg-transparent text-gold border-2 border-gold font-bold text-caption uppercase
            tracking-cta transition-all duration-300 ease-luxury
            hover:scale-[1.03] hover:bg-gold hover:text-white
@@ -62,14 +62,14 @@
   }
 
   .input-pill {
-    @apply block w-full h-[56px] px-6 rounded-full bg-white text-navy
+    @apply block w-full h-[52px] sm:h-[56px] px-5 sm:px-6 rounded-full bg-white text-navy
            font-sans text-body placeholder:text-navy/50
            focus:outline-none focus:ring-2 focus:ring-gold
            transition-all duration-200;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center h-[64px] px-8 rounded-2xl
+    @apply inline-flex items-center justify-center h-[56px] sm:h-[64px] px-6 sm:px-8 rounded-2xl
            border-2 border-navy text-navy bg-transparent font-sans font-semibold
            text-caption uppercase tracking-cta transition-all duration-300 ease-luxury
            hover:bg-gold hover:border-gold hover:text-navy hover:scale-105
@@ -83,7 +83,7 @@
   }
 
   .luxury-input {
-    @apply block w-full h-[64px] px-6 rounded-2xl border border-navy/15
+    @apply block w-full h-[56px] sm:h-[64px] px-5 sm:px-6 rounded-2xl border border-navy/15
            bg-white text-navy text-body font-sans
            placeholder:text-navy/40
            focus:border-gold focus:ring-2 focus:ring-gold/40 focus:outline-none
@@ -99,10 +99,44 @@
   }
 
   .section-pad {
-    @apply py-[80px] md:py-[120px];
+    @apply py-14 sm:py-20 lg:py-[112px];
+  }
+
+  .section-pad-tight {
+    @apply py-10 sm:py-14 lg:py-20;
   }
 
   .eyebrow {
     @apply text-caption uppercase tracking-cta font-medium text-gold;
+  }
+
+  .image-tile {
+    @apply absolute inset-0 w-full h-full object-cover bg-cream;
+  }
+}
+
+@layer utilities {
+  /* Subtle Ken-Burns style drift for hero photos */
+  @keyframes hero-drift {
+    0%   { transform: scale(1.05) translate3d(0, 0, 0); }
+    100% { transform: scale(1.12) translate3d(-1%, -1%, 0); }
+  }
+  .animate-hero-drift {
+    animation: hero-drift 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up { animation: fade-up 0.9s ease-luxury both; }
+  .delay-150 { animation-delay: 0.15s; }
+  .delay-300 { animation-delay: 0.30s; }
+  .delay-450 { animation-delay: 0.45s; }
+
+  /* Respect users' reduced-motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-hero-drift,
+    .animate-fade-up { animation: none; }
   }
 }
