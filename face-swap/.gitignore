@@ -1,0 +1,15 @@
+# Model weights are large + license-restricted; users supply them.
+models/*
+!models/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Outputs / scratch
+outputs/
+*.tmp
+faceswap_*.mp4
