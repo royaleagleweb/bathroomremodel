@@ -106,3 +106,30 @@
     @apply text-caption uppercase tracking-cta font-medium text-gold;
   }
 }
+
+@layer utilities {
+  @keyframes marquee-x {
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+
+  @keyframes marquee-x-reverse {
+    0%   { transform: translate3d(-50%, 0, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+  }
+
+  .animate-marquee {
+    animation: marquee-x 60s linear infinite;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee-x-reverse 75s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee,
+    .animate-marquee-reverse {
+      animation: none;
+    }
+  }
+}
