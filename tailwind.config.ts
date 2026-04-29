@@ -33,6 +33,8 @@ const config: Config = {
         gold: {
           DEFAULT: "#D4AF77",
           hover: "#C49A5F",
+          bright: "#E8C988",
+          deep: "#B08A4A",
         },
         cream: {
           DEFAULT: "#E2D8C3",

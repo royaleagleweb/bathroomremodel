@@ -4,30 +4,77 @@ import { useState } from "react";
 
 export function Hero({ bgImage = "" }: { bgImage?: string }) {
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-charcoal-deep">
-      {/* Photo background with dark overlay */}
+    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-charcoal-deep grain">
+      {/* Cinematic photo background with slow ken-burns zoom */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-35"
+        className="absolute inset-0 bg-cover bg-center opacity-45 animate-kenburns"
         style={{ backgroundImage: bgImage ? `url(${bgImage})` : undefined }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-charcoal-deep via-charcoal-deep/85 to-charcoal-deep/50" />
-      <div className="absolute inset-0 bg-gradient-to-b from-charcoal-deep/70 via-transparent to-charcoal-deep" />
+
+      {/* Layered gradients for depth */}
+      <div className="absolute inset-0 bg-gradient-to-r from-charcoal-deep via-charcoal-deep/80 to-charcoal-deep/30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-charcoal-deep/65 via-transparent to-charcoal-deep" />
+
+      {/* Soft gold accent orbs */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-32 -left-32 w-[460px] h-[460px] rounded-full blur-[120px] opacity-30 animate-float"
+        style={{ background: "radial-gradient(circle, #D4AF77 0%, transparent 70%)" }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-[-160px] right-[-120px] w-[520px] h-[520px] rounded-full blur-[140px] opacity-20 animate-float"
+        style={{
+          background: "radial-gradient(circle, #E8C988 0%, transparent 70%)",
+          animationDelay: "2s",
+        }}
+      />
 
       <div className="relative container mx-auto py-[80px] md:py-[120px] grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-12 items-center">
         {/* Left: pitch */}
         <div className="text-offwhite">
-          <h1 className="font-bold text-offwhite text-[40px] md:text-[64px] lg:text-[72px] leading-[0.98] uppercase tracking-tight">
-            #1 Luxury <br />
-            Bathroom <br />
-            <span className="relative inline-block">
+          {/* Tag chip */}
+          <div
+            className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/5 backdrop-blur-md px-4 py-2 text-caption uppercase tracking-cta font-bold text-gold"
+            style={{ animationDelay: "0.05s" }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            Now booking — only 6 builds / month
+          </div>
+
+          <h1 className="mt-6 font-bold text-offwhite text-[44px] md:text-[68px] lg:text-[78px] leading-[0.95] uppercase tracking-tight">
+            <span
+              className="block animate-fade-up"
+              style={{ animationDelay: "0.15s" }}
+            >
+              <span className="text-gold-shimmer">#1 Luxury</span>
+            </span>
+            <span
+              className="block animate-fade-up"
+              style={{ animationDelay: "0.3s" }}
+            >
+              Bathroom
+            </span>
+            <span
+              className="relative inline-block animate-fade-up"
+              style={{ animationDelay: "0.45s" }}
+            >
               Remodeler
               <Brushstroke />
             </span>
             <br />
-            South Florida
+            <span
+              className="block animate-fade-up text-offwhite/95"
+              style={{ animationDelay: "0.6s" }}
+            >
+              South Florida
+            </span>
           </h1>
 
-          <h2 className="mt-10 font-bold text-offwhite text-[22px] md:text-[26px] uppercase tracking-tight">
+          <h2
+            className="mt-10 animate-fade-up font-bold text-offwhite/90 text-[20px] md:text-[24px] uppercase tracking-tight max-w-xl"
+            style={{ animationDelay: "0.75s" }}
+          >
             <span className="relative inline-block">
               Craftsmanship Built on
               <br />
@@ -36,7 +83,10 @@ export function Hero({ bgImage = "" }: { bgImage?: string }) {
             </span>
           </h2>
 
-          <ul className="mt-10 space-y-3">
+          <ul
+            className="mt-10 space-y-3 animate-fade-up"
+            style={{ animationDelay: "0.9s" }}
+          >
             <CheckItem>
               Locally Serving <strong>Miami, Ft Lauderdale, &amp; West Palm</strong>
             </CheckItem>
@@ -48,9 +98,17 @@ export function Hero({ bgImage = "" }: { bgImage?: string }) {
             </CheckItem>
           </ul>
 
-          <RatingBadges />
+          <div
+            className="animate-fade-up"
+            style={{ animationDelay: "1.05s" }}
+          >
+            <RatingBadges />
+          </div>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <div
+            className="mt-8 flex flex-col sm:flex-row gap-3 animate-fade-up"
+            style={{ animationDelay: "1.2s" }}
+          >
             <a href="#quote-form" className="btn-pill">
               Book a Free Consultation
             </a>
@@ -61,10 +119,26 @@ export function Hero({ bgImage = "" }: { bgImage?: string }) {
         </div>
 
         {/* Right: lead capture form card */}
-        <div id="quote-form">
+        <div
+          id="quote-form"
+          className="animate-fade-up"
+          style={{ animationDelay: "0.4s" }}
+        >
           <LeadForm />
         </div>
       </div>
+
+      {/* Scroll cue */}
+      <a
+        href="#portfolio"
+        aria-label="Scroll to portfolio"
+        className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-offwhite/60 hover:text-gold transition-colors"
+      >
+        <span className="text-caption uppercase tracking-cta font-semibold">
+          Explore
+        </span>
+        <span className="w-[1px] h-10 bg-gradient-to-b from-gold to-transparent animate-scroll-cue" />
+      </a>
     </section>
   );
 }
@@ -72,8 +146,8 @@ export function Hero({ bgImage = "" }: { bgImage?: string }) {
 function CheckItem({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex items-start gap-3 text-body text-offwhite">
-      <span className="shrink-0 mt-1 text-gold">
-        <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" aria-hidden>
+      <span className="shrink-0 mt-1 grid place-items-center w-6 h-6 rounded-full bg-gold/15 text-gold ring-1 ring-gold/40">
+        <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5" aria-hidden>
           <path
             d="M5 13l4 4L19 7"
             stroke="currentColor"
@@ -90,7 +164,7 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 
 function RatingBadges() {
   return (
-    <div className="mt-8 inline-flex items-center gap-4 rounded-2xl bg-offwhite/5 border border-offwhite/10 px-4 py-3">
+    <div className="mt-8 inline-flex items-center gap-4 rounded-2xl bg-offwhite/5 border border-offwhite/10 px-4 py-3 backdrop-blur-md">
       <div className="flex -space-x-2">
         <BrandBadge kind="facebook" />
         <BrandBadge kind="google" />
@@ -190,8 +264,8 @@ function LeadForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-3xl bg-offwhite/5 border border-gold/40 p-8 backdrop-blur-md">
-        <div className="w-14 h-14 rounded-full bg-gold/20 text-gold grid place-items-center">
+      <div className="relative rounded-3xl glass-card p-8">
+        <div className="w-14 h-14 rounded-full bg-gold/20 text-gold grid place-items-center ring-1 ring-gold/40">
           <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" aria-hidden>
             <path
               d="M5 13l4 4L19 7"
@@ -214,66 +288,84 @@ function LeadForm() {
   }
 
   return (
-    <div className="rounded-3xl bg-offwhite/5 border border-offwhite/15 p-8 md:p-10 backdrop-blur-md">
-      <h3 className="text-center font-bold text-offwhite text-[26px] md:text-[30px] uppercase tracking-tight">
-        Get Your Free <span className="text-gold">Bathroom Quote!</span>
-      </h3>
-      <p className="mt-2 text-center text-caption text-offwhite/60">
-        We&apos;ll never share your info with anyone.
-      </p>
-
-      <form
-        className="mt-6 flex flex-col gap-3"
-        onSubmit={(ev) => {
-          ev.preventDefault();
-          submit();
+    <div className="relative">
+      {/* Gold gradient frame */}
+      <div
+        aria-hidden
+        className="absolute -inset-px rounded-[28px] opacity-60 blur-[2px] pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(232,201,136,0.6), rgba(212,175,119,0.1) 30%, rgba(176,138,74,0.6))",
         }}
-      >
-        <PillSelect
-          value={form.type}
-          onChange={(v) => setForm((f) => ({ ...f, type: v }))}
-          error={errors.type}
-          label="Type of project you're interested in?"
-        >
-          {projectTypes.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </PillSelect>
-        <PillInput
-          placeholder="Name"
-          value={form.name}
-          onChange={(v) => setForm((f) => ({ ...f, name: v }))}
-          error={errors.name}
-        />
-        <PillInput
-          placeholder="Phone Number"
-          type="tel"
-          inputMode="tel"
-          value={form.phone}
-          onChange={(v) => setForm((f) => ({ ...f, phone: v }))}
-          error={errors.phone}
-        />
-        <PillInput
-          placeholder="ZIP Code"
-          inputMode="numeric"
-          value={form.zip}
-          onChange={(v) => setForm((f) => ({ ...f, zip: v }))}
-          error={errors.zip}
-        />
-        <PillInput
-          placeholder="Email"
-          type="email"
-          value={form.email}
-          onChange={(v) => setForm((f) => ({ ...f, email: v }))}
-          error={errors.email}
-        />
+      />
+      <div className="relative rounded-3xl glass-card p-8 md:p-10">
+        <div className="text-center">
+          <p className="eyebrow justify-center text-gold/90">Free · No Obligation</p>
+          <h3 className="mt-3 font-bold text-offwhite text-[26px] md:text-[30px] uppercase tracking-tight">
+            Get Your Free <span className="text-gold-gradient">Bathroom Quote</span>
+          </h3>
+          <p className="mt-2 text-caption text-offwhite/60">
+            We&apos;ll never share your info with anyone.
+          </p>
+        </div>
 
-        <button type="submit" className="btn-pill mt-2 h-[60px] text-[15px]">
-          Book a Free Consultation
-        </button>
-      </form>
+        <form
+          className="mt-6 flex flex-col gap-3"
+          onSubmit={(ev) => {
+            ev.preventDefault();
+            submit();
+          }}
+        >
+          <PillSelect
+            value={form.type}
+            onChange={(v) => setForm((f) => ({ ...f, type: v }))}
+            error={errors.type}
+            label="Type of project you're interested in?"
+          >
+            {projectTypes.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </PillSelect>
+          <PillInput
+            placeholder="Name"
+            value={form.name}
+            onChange={(v) => setForm((f) => ({ ...f, name: v }))}
+            error={errors.name}
+          />
+          <PillInput
+            placeholder="Phone Number"
+            type="tel"
+            inputMode="tel"
+            value={form.phone}
+            onChange={(v) => setForm((f) => ({ ...f, phone: v }))}
+            error={errors.phone}
+          />
+          <PillInput
+            placeholder="ZIP Code"
+            inputMode="numeric"
+            value={form.zip}
+            onChange={(v) => setForm((f) => ({ ...f, zip: v }))}
+            error={errors.zip}
+          />
+          <PillInput
+            placeholder="Email"
+            type="email"
+            value={form.email}
+            onChange={(v) => setForm((f) => ({ ...f, email: v }))}
+            error={errors.email}
+          />
+
+          <button type="submit" className="btn-pill mt-2 h-[60px] text-[15px]">
+            Book a Free Consultation
+          </button>
+
+          <p className="mt-2 text-center text-caption text-offwhite/55">
+            🔒 SSL secured · 97% answered in &lt;2 hrs
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

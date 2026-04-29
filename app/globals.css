@@ -6,6 +6,8 @@
   :root {
     --color-navy: #0F172A;
     --color-gold: #D4AF77;
+    --color-gold-bright: #E8C988;
+    --color-gold-deep: #B08A4A;
     --color-cream: #E2D8C3;
     --color-charcoal: #111827;
     --color-offwhite: #F8F4EC;
@@ -17,6 +19,14 @@
 
   body {
     @apply bg-offwhite text-navy font-sans text-body antialiased;
+    background-image:
+      radial-gradient(at 12% 8%, rgba(212, 175, 119, 0.08) 0px, transparent 55%),
+      radial-gradient(at 88% 92%, rgba(15, 23, 42, 0.05) 0px, transparent 55%);
+  }
+
+  ::selection {
+    background: rgba(212, 175, 119, 0.35);
+    color: #0F172A;
   }
 
   h1 {
@@ -38,19 +48,55 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center h-[64px] px-8 rounded-2xl
+    @apply relative inline-flex items-center justify-center h-[64px] px-8 rounded-2xl
            bg-gold text-navy font-sans font-semibold text-caption uppercase
-           tracking-cta transition-all duration-300 ease-luxury
+           tracking-cta transition-all duration-300 ease-luxury overflow-hidden
            hover:scale-105 hover:shadow-gold-glow hover:bg-gold-hover
            active:scale-95 disabled:opacity-40 disabled:pointer-events-none;
   }
 
+  .btn-primary::after {
+    content: "";
+    @apply absolute inset-y-0 -left-1/2 w-1/2 pointer-events-none;
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 100%
+    );
+    transform: skewX(-20deg);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-primary:hover::after {
+    transform: translateX(420%) skewX(-20deg);
+  }
+
   .btn-pill {
-    @apply inline-flex items-center justify-center h-[56px] px-8 rounded-full
-           bg-gold text-white font-bold text-caption uppercase
-           tracking-cta transition-all duration-300 ease-luxury
-           hover:scale-[1.03] hover:shadow-gold-glow hover:bg-gold-hover
+    @apply relative inline-flex items-center justify-center h-[56px] px-8 rounded-full
+           text-white font-bold text-caption uppercase
+           tracking-cta transition-all duration-300 ease-luxury overflow-hidden
+           hover:scale-[1.03] hover:shadow-gold-glow
            active:scale-95 disabled:opacity-40 disabled:pointer-events-none;
+    background-image: linear-gradient(135deg, #E8C988 0%, #D4AF77 45%, #B08A4A 100%);
+    box-shadow: 0 8px 24px rgba(176, 138, 74, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-pill::after {
+    content: "";
+    @apply absolute inset-y-0 -left-1/2 w-1/2 pointer-events-none;
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.55) 50%,
+      transparent 100%
+    );
+    transform: skewX(-20deg);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-pill:hover::after {
+    transform: translateX(420%) skewX(-20deg);
   }
 
   .btn-pill-outline {
@@ -66,6 +112,7 @@
            font-sans text-body placeholder:text-navy/50
            focus:outline-none focus:ring-2 focus:ring-gold
            transition-all duration-200;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
   }
 
   .btn-secondary {
@@ -78,8 +125,8 @@
 
   .luxury-card {
     @apply bg-white rounded-card shadow-card overflow-hidden
-           transition-all duration-300 ease-luxury
-           hover:scale-[1.02] hover:shadow-[0_12px_40px_rgba(15,23,42,0.15)];
+           transition-all duration-500 ease-luxury
+           hover:scale-[1.02] hover:shadow-[0_24px_60px_rgba(15,23,42,0.18)];
   }
 
   .luxury-input {
@@ -105,9 +152,72 @@
   .eyebrow {
     @apply text-caption uppercase tracking-cta font-medium text-gold;
   }
+
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background-color: currentColor;
+    margin-right: 12px;
+    vertical-align: middle;
+  }
+
+  /* Gold gradient headline accent — apply via .text-gold-gradient */
+  .text-gold-gradient {
+    background-image: linear-gradient(135deg, #F2DCA6 0%, #D4AF77 40%, #B08A4A 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Animated shimmer on the gradient — apply with .text-gold-shimmer */
+  .text-gold-shimmer {
+    background-image: linear-gradient(
+      110deg,
+      #B08A4A 0%,
+      #D4AF77 30%,
+      #F8E9C7 50%,
+      #D4AF77 70%,
+      #B08A4A 100%
+    );
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gold-shimmer 6s ease-in-out infinite;
+  }
+
+  /* Glass card */
+  .glass-card {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+    border: 1px solid rgba(248, 244, 236, 0.18);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow:
+      0 18px 60px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(212, 175, 119, 0.5) 50%,
+      transparent 100%
+    );
+  }
 }
 
 @layer utilities {
+  /* Marquee */
   @keyframes marquee-x {
     0%   { transform: translate3d(0, 0, 0); }
     100% { transform: translate3d(-50%, 0, 0); }
@@ -126,9 +236,74 @@
     animation: marquee-x-reverse 75s linear infinite;
   }
 
+  /* Cinematic Ken Burns slow zoom for hero backgrounds */
+  @keyframes kenburns {
+    0%   { transform: scale(1.08) translate3d(0, 0, 0); }
+    50%  { transform: scale(1.18) translate3d(-1.5%, -1%, 0); }
+    100% { transform: scale(1.08) translate3d(0, 0, 0); }
+  }
+
+  .animate-kenburns {
+    animation: kenburns 28s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Headline reveal */
+  @keyframes fade-up {
+    0%   { opacity: 0; transform: translate3d(0, 24px, 0); }
+    100% { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Gold shimmer keyframes */
+  @keyframes gold-shimmer {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Soft float for accent orbs */
+  @keyframes float-soft {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50%      { transform: translate3d(0, -12px, 0); }
+  }
+
+  .animate-float {
+    animation: float-soft 7s ease-in-out infinite;
+  }
+
+  /* Pulsing scroll cue */
+  @keyframes scroll-cue {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50%      { transform: translateY(8px); opacity: 1; }
+  }
+
+  .animate-scroll-cue {
+    animation: scroll-cue 2.2s ease-in-out infinite;
+  }
+
+  /* Subtle grain overlay — use as a child div with .grain */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-marquee,
-    .animate-marquee-reverse {
+    .animate-marquee-reverse,
+    .animate-kenburns,
+    .animate-fade-up,
+    .animate-float,
+    .animate-scroll-cue,
+    .text-gold-shimmer {
       animation: none;
     }
   }

@@ -8,6 +8,7 @@ import { Gallery } from "@/components/Gallery";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
 import { StickyCTA } from "@/components/StickyCTA";
+import { Stats } from "@/components/Stats";
 import { getUploadedImages } from "@/lib/uploads";
 
 const serviceCopy = [
@@ -45,7 +46,12 @@ export default function HomePage() {
   }));
   // Reverse marquee uses an offset slice so it doesn't mirror the gallery order
   const marquee =
-    images.length > 1 ? [...images.slice(Math.floor(images.length / 2)), ...images.slice(0, Math.floor(images.length / 2))] : images;
+    images.length > 1
+      ? [
+          ...images.slice(Math.floor(images.length / 2)),
+          ...images.slice(0, Math.floor(images.length / 2)),
+        ]
+      : images;
 
   return (
     <>
@@ -55,7 +61,7 @@ export default function HomePage() {
 
       {/* Value-prop strip — three reasons to trust us */}
       <section className="bg-offwhite border-y border-navy/5">
-        <div className="container mx-auto py-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12">
+        <div className="container mx-auto py-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12">
           {[
             {
               title: "Fixed Price, In Writing",
@@ -70,8 +76,11 @@ export default function HomePage() {
               body: "Licensed, insured, and bonded. We stand behind every joint.",
             },
           ].map((v) => (
-            <div key={v.title} className="flex gap-4 items-start">
-              <span className="shrink-0 w-10 h-10 rounded-full bg-gold/15 text-gold grid place-items-center">
+            <div
+              key={v.title}
+              className="group flex gap-4 items-start rounded-2xl p-2 transition-colors"
+            >
+              <span className="shrink-0 w-12 h-12 rounded-2xl bg-gold/15 text-gold grid place-items-center ring-1 ring-gold/30 group-hover:bg-gold group-hover:text-white transition-all duration-300">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -88,9 +97,7 @@ export default function HomePage() {
                 </svg>
               </span>
               <div>
-                <p className="font-display text-[22px] text-navy">
-                  {v.title}
-                </p>
+                <p className="font-display text-[22px] text-navy">{v.title}</p>
                 <p className="mt-1 text-body text-navy/70">{v.body}</p>
               </div>
             </div>
@@ -101,14 +108,26 @@ export default function HomePage() {
       {/* The big gallery — every uploaded photo */}
       <Gallery images={images} />
 
+      {/* Stats strip */}
+      <Stats />
+
       {/* Services */}
-      <section className="section-pad bg-offwhite">
-        <div className="container mx-auto">
+      <section className="relative section-pad bg-offwhite overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-32 -left-24 w-[420px] h-[420px] rounded-full blur-[140px] opacity-25"
+          style={{
+            background:
+              "radial-gradient(circle, #D4AF77 0%, transparent 70%)",
+          }}
+        />
+        <div className="relative container mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="max-w-2xl">
               <p className="eyebrow">Signature Services</p>
-              <h2 className="mt-3">
-                Pick the suite. We will build it like it&apos;s our own.
+              <h2 className="mt-4">
+                Pick the suite. We&apos;ll build it like{" "}
+                <span className="text-gold-gradient">it&apos;s our own.</span>
               </h2>
             </div>
             <Link
@@ -128,12 +147,21 @@ export default function HomePage() {
       </section>
 
       {/* Process strip */}
-      <section className="bg-navy text-offwhite section-pad">
-        <div className="container mx-auto">
+      <section className="relative bg-navy text-offwhite section-pad overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute top-1/3 right-[-10%] w-[420px] h-[420px] rounded-full blur-[140px] opacity-30"
+          style={{
+            background:
+              "radial-gradient(circle, #D4AF77 0%, transparent 70%)",
+          }}
+        />
+        <div className="relative container mx-auto">
           <div className="max-w-2xl">
             <p className="eyebrow text-gold">How It Works</p>
-            <h2 className="mt-3 text-offwhite">
-              Four steps. Zero surprises. One stunning bath.
+            <h2 className="mt-4 text-offwhite">
+              Four steps. Zero surprises.{" "}
+              <span className="text-gold-gradient">One stunning bath.</span>
             </h2>
           </div>
           <div className="mt-12 grid md:grid-cols-4 gap-10">
@@ -159,10 +187,11 @@ export default function HomePage() {
                 body: "Walkthrough + 5-year craftsmanship warranty in writing.",
               },
             ].map((p) => (
-              <div key={p.step}>
-                <p className="font-display text-[52px] text-gold leading-none">
+              <div key={p.step} className="group">
+                <p className="font-display text-[60px] leading-none text-gold-gradient">
                   {p.step}
                 </p>
+                <div className="mt-3 h-px w-12 bg-gradient-to-r from-gold to-transparent transition-all duration-500 group-hover:w-24" />
                 <h3 className="mt-4 text-offwhite">{p.title}</h3>
                 <p className="mt-2 text-body text-offwhite/70">{p.body}</p>
               </div>
@@ -185,22 +214,33 @@ export default function HomePage() {
       {/* Final CTA — cannot-miss banner */}
       <section className="section-pad bg-offwhite">
         <div className="container mx-auto">
-          <div className="rounded-card bg-navy text-offwhite px-8 md:px-16 py-20 text-center relative overflow-hidden">
+          <div className="rounded-card bg-navy text-offwhite px-8 md:px-16 py-20 text-center relative overflow-hidden grain">
             <div
-              className="absolute inset-0 opacity-30 bg-cover bg-center"
+              className="absolute inset-0 opacity-30 bg-cover bg-center animate-kenburns"
               style={{
                 backgroundImage: heroImage ? `url(${heroImage})` : undefined,
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/60 to-navy/85" />
+            {/* gold orb */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full blur-[140px] opacity-30"
+              style={{
+                background:
+                  "radial-gradient(circle, #D4AF77 0%, transparent 70%)",
+              }}
+            />
             <div className="relative">
-              <p className="eyebrow text-gold">Ready in 4 Weeks</p>
+              <p className="eyebrow text-gold justify-center">Ready in 4 Weeks</p>
               <h2 className="mt-4 max-w-3xl mx-auto text-offwhite">
-                Free design consult. Fixed quote in 2 hours. Zero hard sell.
+                Free design consult.{" "}
+                <span className="text-gold-gradient">Fixed quote</span> in 2
+                hours. Zero hard sell.
               </h2>
               <p className="mt-5 max-w-2xl mx-auto text-body text-offwhite/75">
-                We only take on 6 builds per month so every suite gets the
-                lead designer&apos;s attention. Booking now for next month.
+                We only take on 6 builds per month so every suite gets the lead
+                designer&apos;s attention. Booking now for next month.
               </p>
               <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
                 <ButtonLink href="/quote" withArrow>
