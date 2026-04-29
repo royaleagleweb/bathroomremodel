@@ -19,9 +19,6 @@
 
   body {
     @apply bg-offwhite text-navy font-sans text-body antialiased;
-    background-image:
-      radial-gradient(at 12% 8%, rgba(212, 175, 119, 0.08) 0px, transparent 55%),
-      radial-gradient(at 88% 92%, rgba(15, 23, 42, 0.05) 0px, transparent 55%);
   }
 
   ::selection {
@@ -73,13 +70,17 @@
   }
 
   .btn-pill {
-    @apply relative inline-flex items-center justify-center h-[56px] px-8 rounded-full
-           text-white font-bold text-caption uppercase
+    @apply relative inline-flex items-center justify-center h-[54px] px-7 rounded-full
+           text-navy font-bold text-caption uppercase
            tracking-cta transition-all duration-300 ease-luxury overflow-hidden
-           hover:scale-[1.03] hover:shadow-gold-glow
+           hover:shadow-gold-glow
            active:scale-95 disabled:opacity-40 disabled:pointer-events-none;
-    background-image: linear-gradient(135deg, #E8C988 0%, #D4AF77 45%, #B08A4A 100%);
-    box-shadow: 0 8px 24px rgba(176, 138, 74, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background-image: linear-gradient(135deg, #F0D9A4 0%, #D4AF77 55%, #C49A5F 100%);
+    box-shadow: 0 6px 18px rgba(176, 138, 74, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .btn-pill:hover {
+    transform: translateY(-1px);
   }
 
   .btn-pill::after {
@@ -108,11 +109,12 @@
   }
 
   .input-pill {
-    @apply block w-full h-[56px] px-6 rounded-full bg-white text-navy
-           font-sans text-body placeholder:text-navy/50
-           focus:outline-none focus:ring-2 focus:ring-gold
+    @apply block w-full h-[52px] px-5 rounded-full bg-white text-navy
+           font-sans text-[15px] placeholder:text-navy/45
+           border border-transparent
+           focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30
            transition-all duration-200;
-    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
   }
 
   .btn-secondary {
@@ -124,9 +126,10 @@
   }
 
   .luxury-card {
-    @apply bg-white rounded-card shadow-card overflow-hidden
+    @apply bg-white rounded-card overflow-hidden
            transition-all duration-500 ease-luxury
-           hover:scale-[1.02] hover:shadow-[0_24px_60px_rgba(15,23,42,0.18)];
+           hover:shadow-[0_20px_50px_rgba(15,23,42,0.14)] hover:-translate-y-1;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
   }
 
   .luxury-input {
@@ -150,17 +153,23 @@
   }
 
   .eyebrow {
-    @apply text-caption uppercase tracking-cta font-medium text-gold;
+    font-size: 11px;
+    line-height: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-weight: 600;
+    color: var(--color-gold);
   }
 
   .eyebrow::before {
     content: "";
     display: inline-block;
-    width: 32px;
+    width: 28px;
     height: 1px;
     background-color: currentColor;
     margin-right: 12px;
     vertical-align: middle;
+    opacity: 0.7;
   }
 
   /* Gold gradient headline accent — apply via .text-gold-gradient */

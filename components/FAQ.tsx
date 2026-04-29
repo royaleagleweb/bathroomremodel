@@ -31,23 +31,24 @@ export function FAQ() {
       <div className="container mx-auto">
         <div className="max-w-2xl">
           <p className="eyebrow">Before You Book</p>
-          <h2 className="mt-4">
+          <h2 className="mt-4 font-display text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.01em]">
             The questions every{" "}
-            <span className="text-gold-gradient">smart homeowner</span> asks.
+            <span className="text-gold-gradient italic">smart homeowner</span>{" "}
+            asks.
           </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-3">
           {faqs.map((f, i) => (
             <details
               key={i}
-              className="group rounded-2xl bg-white border border-navy/10 px-6 py-5 transition-all duration-300 hover:shadow-card open:shadow-[0_18px_44px_rgba(15,23,42,0.12)] open:border-gold/40"
+              className="group rounded-[20px] bg-white border border-navy/[0.08] px-7 py-6 transition-all duration-300 hover:border-gold/30 open:border-gold/40 open:shadow-[0_18px_44px_rgba(15,23,42,0.10)]"
             >
               <summary className="flex cursor-pointer items-center justify-between gap-6 list-none">
-                <span className="font-display text-[20px] md:text-[22px] text-navy group-open:text-gold-deep transition-colors">
+                <span className="font-display text-[20px] md:text-[22px] leading-tight text-navy group-open:text-gold-deep transition-colors">
                   {f.q}
                 </span>
-                <span className="shrink-0 w-10 h-10 rounded-full bg-cream-light grid place-items-center text-gold transition-all duration-300 group-open:rotate-45 group-open:bg-gold group-open:text-white">
+                <span className="shrink-0 w-9 h-9 rounded-full border border-gold/40 grid place-items-center text-gold transition-all duration-300 group-open:rotate-45 group-open:bg-gold group-open:text-white group-open:border-gold">
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
@@ -63,7 +64,7 @@ export function FAQ() {
                   </svg>
                 </span>
               </summary>
-              <p className="mt-4 text-body text-navy/75">{f.a}</p>
+              <p className="mt-4 text-[16px] leading-[1.6] text-navy/70">{f.a}</p>
             </details>
           ))}
         </div>

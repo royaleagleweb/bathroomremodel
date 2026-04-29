@@ -9,15 +9,15 @@ const badges = [
 export function TrustBar() {
   return (
     <section className="bg-navy text-offwhite">
-      <div className="container mx-auto py-8">
-        <p className="text-center eyebrow text-offwhite/60">
+      <div className="container mx-auto py-9">
+        <p className="text-center text-[10px] uppercase tracking-[0.3em] font-semibold text-offwhite/40">
           As featured in
         </p>
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
           {badges.map((b) => (
             <span
               key={b}
-              className="font-display text-[22px] text-offwhite/80"
+              className="font-display italic text-[20px] text-offwhite/65"
             >
               {b}
             </span>
