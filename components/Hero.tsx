@@ -1,15 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { HERO } from "@/lib/images";
 
-export function Hero() {
+export function Hero({ bgImage = "" }: { bgImage?: string }) {
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-charcoal-deep">
       {/* Photo background with dark overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-35"
-        style={{ backgroundImage: `url(${HERO.desktop})` }}
+        style={{ backgroundImage: bgImage ? `url(${bgImage})` : undefined }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-charcoal-deep via-charcoal-deep/85 to-charcoal-deep/50" />
       <div className="absolute inset-0 bg-gradient-to-b from-charcoal-deep/70 via-transparent to-charcoal-deep" />

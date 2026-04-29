@@ -3,36 +3,46 @@ import { ButtonLink } from "@/components/Button";
 import { ServiceCard } from "@/components/Card";
 import { TrustBar } from "@/components/TrustBar";
 import { Hero } from "@/components/Hero";
-import { HERO, SERVICE_IMAGES, TEASER_IMAGES } from "@/lib/images";
+import { getUploadedImages } from "@/lib/uploads";
 
-const services = [
+const serviceCopy = [
   {
     title: "Full Primary Suite Remodel",
     price: "$62k",
-    image: SERVICE_IMAGES.fullRemodel,
     description:
       "Studs-to-soul transformation. Italian tile, custom millwork, and spa-grade fixtures.",
   },
   {
     title: "Walk-In Shower & Wet Room",
     price: "$28k",
-    image: SERVICE_IMAGES.shower,
     description:
       "Frameless glass, radiant floors, and zero-threshold entries engineered for South Florida.",
   },
   {
     title: "Custom Vanity & Millwork",
     price: "$18k",
-    image: SERVICE_IMAGES.vanity,
     description:
       "Hand-selected stone, brushed brass, and cabinetry built for the humidity of the coast.",
   },
 ];
 
+function pick(images: string[], index: number, fallback = ""): string {
+  if (images.length === 0) return fallback;
+  return images[index % images.length];
+}
+
 export default function HomePage() {
+  const images = getUploadedImages();
+  const heroImage = pick(images, 0);
+  const services = serviceCopy.map((s, i) => ({
+    ...s,
+    image: pick(images, i + 1),
+  }));
+  const teasers = Array.from({ length: 6 }, (_, i) => pick(images, i + 4));
+
   return (
     <>
-      <Hero />
+      <Hero bgImage={heroImage} />
 
       <TrustBar />
 
@@ -83,15 +93,15 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-6">
-            {TEASER_IMAGES.map((src, i) => (
+            {teasers.map((src, i) => (
               <div
-                key={src}
+                key={i}
                 className="luxury-card relative"
                 style={{ height: i % 2 === 0 ? 360 : 280 }}
               >
                 <div
                   className="absolute inset-0 bg-cover bg-center bg-cream"
-                  style={{ backgroundImage: `url(${src})` }}
+                  style={{ backgroundImage: src ? `url(${src})` : undefined }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
                   <div className="p-6 text-offwhite">
@@ -133,7 +143,7 @@ export default function HomePage() {
           <div className="rounded-card bg-navy text-offwhite px-8 md:px-16 py-20 text-center relative overflow-hidden">
             <div
               className="absolute inset-0 opacity-25 bg-cover bg-center"
-              style={{ backgroundImage: `url(${HERO.desktop})` }}
+              style={{ backgroundImage: heroImage ? `url(${heroImage})` : undefined }}
             />
             <div className="relative">
               <p className="eyebrow text-gold">Transform in 4 weeks</p>
