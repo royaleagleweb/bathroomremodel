@@ -8,6 +8,7 @@ import { Gallery } from "@/components/Gallery";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
 import { StickyCTA } from "@/components/StickyCTA";
+import { Stats } from "@/components/Stats";
 import { getUploadedImages } from "@/lib/uploads";
 
 const serviceCopy = [
@@ -43,9 +44,13 @@ export default function HomePage() {
     ...s,
     image: pick(images, i + 1),
   }));
-  // Reverse marquee uses an offset slice so it doesn't mirror the gallery order
   const marquee =
-    images.length > 1 ? [...images.slice(Math.floor(images.length / 2)), ...images.slice(0, Math.floor(images.length / 2))] : images;
+    images.length > 1
+      ? [
+          ...images.slice(Math.floor(images.length / 2)),
+          ...images.slice(0, Math.floor(images.length / 2)),
+        ]
+      : images;
 
   return (
     <>
@@ -54,24 +59,24 @@ export default function HomePage() {
       <TrustBar />
 
       {/* Value-prop strip — three reasons to trust us */}
-      <section className="bg-offwhite border-y border-navy/5">
-        <div className="container mx-auto py-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12">
+      <section className="bg-offwhite border-y border-navy/[0.06]">
+        <div className="container mx-auto py-14 grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-8">
           {[
             {
-              title: "Fixed Price, In Writing",
+              title: "Fixed price, in writing",
               body: "Price-Lock Guarantee. The quote you sign is the invoice you pay.",
             },
             {
-              title: "4-Week Builds, Typical",
+              title: "4-week builds, typical",
               body: "Dedicated crews. Daily progress photos. Schedules we hit.",
             },
             {
-              title: "5-Year Warranty",
+              title: "5-year warranty",
               body: "Licensed, insured, and bonded. We stand behind every joint.",
             },
           ].map((v) => (
-            <div key={v.title} className="flex gap-4 items-start">
-              <span className="shrink-0 w-10 h-10 rounded-full bg-gold/15 text-gold grid place-items-center">
+            <div key={v.title} className="group flex gap-5 items-start">
+              <span className="shrink-0 w-11 h-11 rounded-full bg-gold/10 text-gold grid place-items-center ring-1 ring-gold/20 group-hover:bg-gold group-hover:text-white transition-all duration-300">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -81,17 +86,19 @@ export default function HomePage() {
                   <path
                     d="M5 13l4 4L19 7"
                     stroke="currentColor"
-                    strokeWidth="3"
+                    strokeWidth="2.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                 </svg>
               </span>
               <div>
-                <p className="font-display text-[22px] text-navy">
+                <p className="font-display text-[22px] leading-tight text-navy">
                   {v.title}
                 </p>
-                <p className="mt-1 text-body text-navy/70">{v.body}</p>
+                <p className="mt-1.5 text-[15px] leading-[1.55] text-navy/60">
+                  {v.body}
+                </p>
               </div>
             </div>
           ))}
@@ -101,14 +108,26 @@ export default function HomePage() {
       {/* The big gallery — every uploaded photo */}
       <Gallery images={images} />
 
+      {/* Stats strip */}
+      <Stats />
+
       {/* Services */}
-      <section className="section-pad bg-offwhite">
-        <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <section className="relative section-pad bg-offwhite overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-32 -left-24 w-[420px] h-[420px] rounded-full blur-[140px] opacity-25"
+          style={{
+            background:
+              "radial-gradient(circle, #D4AF77 0%, transparent 70%)",
+          }}
+        />
+        <div className="relative container mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="max-w-2xl">
               <p className="eyebrow">Signature Services</p>
-              <h2 className="mt-3">
-                Pick the suite. We will build it like it&apos;s our own.
+              <h2 className="mt-4 font-display text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.01em]">
+                Pick the suite. We build it{" "}
+                <span className="text-gold-gradient italic">like our own.</span>
               </h2>
             </div>
             <Link
@@ -119,7 +138,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
             {services.map((s) => (
               <ServiceCard key={s.title} {...s} />
             ))}
@@ -128,15 +147,24 @@ export default function HomePage() {
       </section>
 
       {/* Process strip */}
-      <section className="bg-navy text-offwhite section-pad">
-        <div className="container mx-auto">
+      <section className="relative bg-charcoal-deep text-offwhite section-pad overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute top-1/4 right-[-12%] w-[460px] h-[460px] rounded-full blur-[140px] opacity-25"
+          style={{
+            background:
+              "radial-gradient(circle, #D4AF77 0%, transparent 70%)",
+          }}
+        />
+        <div className="relative container mx-auto">
           <div className="max-w-2xl">
             <p className="eyebrow text-gold">How It Works</p>
-            <h2 className="mt-3 text-offwhite">
-              Four steps. Zero surprises. One stunning bath.
+            <h2 className="mt-4 font-display text-offwhite text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.01em]">
+              Four steps. Zero surprises.{" "}
+              <span className="text-gold-gradient italic">One stunning bath.</span>
             </h2>
           </div>
-          <div className="mt-12 grid md:grid-cols-4 gap-10">
+          <div className="mt-14 grid md:grid-cols-4 gap-x-8 gap-y-12">
             {[
               {
                 step: "01",
@@ -159,12 +187,17 @@ export default function HomePage() {
                 body: "Walkthrough + 5-year craftsmanship warranty in writing.",
               },
             ].map((p) => (
-              <div key={p.step}>
-                <p className="font-display text-[52px] text-gold leading-none">
+              <div key={p.step} className="group">
+                <p className="font-display font-light text-[64px] md:text-[72px] leading-none tracking-[-0.04em] text-gold-gradient">
                   {p.step}
                 </p>
-                <h3 className="mt-4 text-offwhite">{p.title}</h3>
-                <p className="mt-2 text-body text-offwhite/70">{p.body}</p>
+                <div className="mt-4 h-px w-10 bg-gradient-to-r from-gold to-transparent transition-all duration-500 group-hover:w-24" />
+                <h3 className="mt-5 font-display text-[24px] text-offwhite">
+                  {p.title}
+                </h3>
+                <p className="mt-2 text-[15px] leading-[1.6] text-offwhite/65">
+                  {p.body}
+                </p>
               </div>
             ))}
           </div>
@@ -182,29 +215,42 @@ export default function HomePage() {
       {/* FAQ */}
       <FAQ />
 
-      {/* Final CTA — cannot-miss banner */}
+      {/* Final CTA — refined, generous whitespace */}
       <section className="section-pad bg-offwhite">
         <div className="container mx-auto">
-          <div className="rounded-card bg-navy text-offwhite px-8 md:px-16 py-20 text-center relative overflow-hidden">
+          <div className="rounded-[32px] bg-charcoal-deep text-offwhite px-8 md:px-16 py-20 md:py-24 text-center relative overflow-hidden grain">
             <div
-              className="absolute inset-0 opacity-30 bg-cover bg-center"
+              className="absolute inset-0 opacity-30 bg-cover bg-center animate-kenburns"
               style={{
                 backgroundImage: heroImage ? `url(${heroImage})` : undefined,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/60 to-navy/85" />
+            <div className="absolute inset-0 bg-gradient-to-b from-charcoal-deep/60 via-charcoal-deep/55 to-charcoal-deep/85" />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full blur-[140px] opacity-25"
+              style={{
+                background:
+                  "radial-gradient(circle, #D4AF77 0%, transparent 70%)",
+              }}
+            />
             <div className="relative">
-              <p className="eyebrow text-gold">Ready in 4 Weeks</p>
-              <h2 className="mt-4 max-w-3xl mx-auto text-offwhite">
-                Free design consult. Fixed quote in 2 hours. Zero hard sell.
-              </h2>
-              <p className="mt-5 max-w-2xl mx-auto text-body text-offwhite/75">
-                We only take on 6 builds per month so every suite gets the
-                lead designer&apos;s attention. Booking now for next month.
+              <p className="text-[11px] uppercase tracking-[0.22em] font-semibold text-gold">
+                Ready in 4 weeks
               </p>
-              <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+              <h2 className="mt-5 max-w-3xl mx-auto font-display text-offwhite text-[40px] md:text-[56px] leading-[1.05] tracking-[-0.01em]">
+                Free design consult.{" "}
+                <span className="text-gold-gradient italic">Fixed quote</span>{" "}
+                in 2 hours.
+              </h2>
+              <p className="mt-6 max-w-xl mx-auto text-[17px] leading-[1.55] text-offwhite/70">
+                We only take on six builds per month so every suite gets the
+                lead designer&apos;s full attention. Booking now for next
+                month.
+              </p>
+              <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-5">
                 <ButtonLink href="/quote" withArrow>
-                  Start My Quote
+                  Start my quote
                 </ButtonLink>
                 <a
                   href="tel:+13055550134"
@@ -213,7 +259,7 @@ export default function HomePage() {
                   or call (305) 555-0134
                 </a>
               </div>
-              <p className="mt-6 text-caption text-offwhite/55">
+              <p className="mt-8 text-[11px] uppercase tracking-[0.2em] font-semibold text-offwhite/40">
                 Licensed CGC1531882 · $2M insured · 240+ five-star reviews
               </p>
             </div>

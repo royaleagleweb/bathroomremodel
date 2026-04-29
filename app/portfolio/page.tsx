@@ -195,32 +195,27 @@ export default function PortfolioPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[260px] gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[260px] gap-3">
               {filtered.map((p) => (
                 <article
                   key={p.id}
-                  className={`luxury-card group relative overflow-hidden ${spanClass(
+                  className={`group relative overflow-hidden rounded-2xl ring-1 ring-navy/[0.04] hover:ring-gold/50 transition-all duration-500 ${spanClass(
                     p.span
                   )}`}
                 >
                   <div
-                    className="absolute inset-0 bg-cover bg-center bg-cream transition-transform duration-700 ease-luxury group-hover:scale-110"
+                    className="absolute inset-0 bg-cover bg-center bg-cream transition-transform duration-[1000ms] ease-luxury group-hover:scale-[1.06]"
                     style={{ backgroundImage: `url(${p.image})` }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
-
-                  {/* Before label */}
-                  <span className="absolute top-4 left-4 bg-offwhite/90 text-navy text-caption uppercase tracking-cta font-semibold px-3 py-1 rounded-full">
-                    Before / After
+                  <div className="absolute inset-0 bg-navy/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute top-3 right-3 w-9 h-9 rounded-full bg-offwhite/0 ring-1 ring-offwhite/0 group-hover:bg-offwhite/95 group-hover:ring-gold/40 transition-all duration-500 grid place-items-center text-navy text-[13px] font-bold"
+                  >
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity delay-150">
+                      ↗
+                    </span>
                   </span>
-
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-offwhite translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="eyebrow text-gold">{p.cityLabel}</p>
-                    <h3 className="mt-1 text-offwhite">{p.title}</h3>
-                    <p className="mt-1 text-caption uppercase tracking-cta text-offwhite/75">
-                      {p.scope}
-                    </p>
-                  </div>
                 </article>
               ))}
             </div>
