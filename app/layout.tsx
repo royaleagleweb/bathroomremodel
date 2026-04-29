@@ -39,7 +39,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${playfair.variable} ${montserrat.variable}`}
     >
-      <body>
+      <body className="pb-[76px] md:pb-0">
         <Nav />
         <main>{children}</main>
         <Footer />

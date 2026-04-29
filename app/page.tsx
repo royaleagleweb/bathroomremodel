@@ -4,6 +4,10 @@ import { ServiceCard } from "@/components/Card";
 import { TrustBar } from "@/components/TrustBar";
 import { Hero } from "@/components/Hero";
 import { ImageMarquee } from "@/components/ImageMarquee";
+import { Gallery } from "@/components/Gallery";
+import { Testimonials } from "@/components/Testimonials";
+import { FAQ } from "@/components/FAQ";
+import { StickyCTA } from "@/components/StickyCTA";
 import { getUploadedImages } from "@/lib/uploads";
 
 const serviceCopy = [
@@ -32,18 +36,6 @@ function pick(images: string[], index: number, fallback = ""): string {
   return images[index % images.length];
 }
 
-const NEIGHBORHOODS = [
-  "Coral Gables",
-  "Miami Beach",
-  "Fort Lauderdale",
-  "West Palm",
-  "Bal Harbour",
-  "Coconut Grove",
-  "Boca Raton",
-  "Key Biscayne",
-  "Pinecrest",
-];
-
 export default function HomePage() {
   const images = getUploadedImages();
   const heroImage = pick(images, 0);
@@ -51,13 +43,9 @@ export default function HomePage() {
     ...s,
     image: pick(images, i + 1),
   }));
-
-  // Use as many real photos as we have for the showcase grid (up to 9).
-  const showcase = images.slice(0, 9);
-  // Two marquee strips drawn from the full set, offset so they don't repeat.
-  const marqueeTop = images.length > 0 ? images : [];
-  const marqueeBottom =
-    images.length > 1 ? [...images.slice(1), images[0]] : images;
+  // Reverse marquee uses an offset slice so it doesn't mirror the gallery order
+  const marquee =
+    images.length > 1 ? [...images.slice(Math.floor(images.length / 2)), ...images.slice(0, Math.floor(images.length / 2))] : images;
 
   return (
     <>
@@ -65,26 +53,53 @@ export default function HomePage() {
 
       <TrustBar />
 
-      {/* Auto-scrolling photo strip */}
-      {marqueeTop.length > 0 && (
-        <section className="bg-charcoal-deep py-10">
-          <div className="container mx-auto mb-6 flex items-end justify-between gap-6 px-6">
-            <div>
-              <p className="eyebrow text-gold">The Aurelia Portfolio</p>
-              <h2 className="mt-2 text-offwhite max-w-2xl">
-                620+ South Florida suites, hand-built.
-              </h2>
+      {/* Value-prop strip — three reasons to trust us */}
+      <section className="bg-offwhite border-y border-navy/5">
+        <div className="container mx-auto py-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12">
+          {[
+            {
+              title: "Fixed Price, In Writing",
+              body: "Price-Lock Guarantee. The quote you sign is the invoice you pay.",
+            },
+            {
+              title: "4-Week Builds, Typical",
+              body: "Dedicated crews. Daily progress photos. Schedules we hit.",
+            },
+            {
+              title: "5-Year Warranty",
+              body: "Licensed, insured, and bonded. We stand behind every joint.",
+            },
+          ].map((v) => (
+            <div key={v.title} className="flex gap-4 items-start">
+              <span className="shrink-0 w-10 h-10 rounded-full bg-gold/15 text-gold grid place-items-center">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="w-5 h-5"
+                  aria-hidden
+                >
+                  <path
+                    d="M5 13l4 4L19 7"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+              <div>
+                <p className="font-display text-[22px] text-navy">
+                  {v.title}
+                </p>
+                <p className="mt-1 text-body text-navy/70">{v.body}</p>
+              </div>
             </div>
-            <Link
-              href="/portfolio"
-              className="hidden md:inline-flex text-caption uppercase tracking-cta font-semibold text-gold hover:text-offwhite transition-colors"
-            >
-              See full portfolio →
-            </Link>
-          </div>
-          <ImageMarquee images={marqueeTop} height={320} />
-        </section>
-      )}
+          ))}
+        </div>
+      </section>
+
+      {/* The big gallery — every uploaded photo */}
+      <Gallery images={images} />
 
       {/* Services */}
       <section className="section-pad bg-offwhite">
@@ -93,8 +108,7 @@ export default function HomePage() {
             <div className="max-w-2xl">
               <p className="eyebrow">Signature Services</p>
               <h2 className="mt-3">
-                Spaces that feel inevitable — as if they were always meant to
-                be yours.
+                Pick the suite. We will build it like it&apos;s our own.
               </h2>
             </div>
             <Link
@@ -113,114 +127,101 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Showcase grid — bento layout */}
-      {showcase.length > 0 && (
-        <section className="section-pad bg-cream-light">
-          <div className="container mx-auto">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div className="max-w-2xl">
-                <p className="eyebrow">Recent Work</p>
-                <h2 className="mt-3">
-                  Six weeks ago these were dated. Today they feel inherited
-                  from a Milanese penthouse.
-                </h2>
-              </div>
-              <Link
-                href="/portfolio"
-                className="text-caption uppercase tracking-cta font-semibold text-navy hover:text-gold transition-colors"
-              >
-                Full portfolio →
-              </Link>
-            </div>
-
-            <div className="mt-12 grid grid-cols-2 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[220px] gap-4">
-              {showcase.map((src, i) => {
-                // Bento spans for visual rhythm
-                const spans = [
-                  "col-span-2 row-span-2",
-                  "col-span-1 row-span-1",
-                  "col-span-1 row-span-2",
-                  "col-span-1 row-span-1",
-                  "col-span-1 row-span-1",
-                  "col-span-2 row-span-1",
-                  "col-span-1 row-span-2",
-                  "col-span-1 row-span-1",
-                  "col-span-2 row-span-1",
-                ];
-                const neighborhood =
-                  NEIGHBORHOODS[i % NEIGHBORHOODS.length];
-                return (
-                  <div
-                    key={i}
-                    className={`group relative rounded-2xl overflow-hidden shadow-[0_8px_24px_rgba(15,23,42,0.12)] ${spans[i]}`}
-                  >
-                    <div
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 bg-cream"
-                      style={{ backgroundImage: `url(${src})` }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
-                    <div className="absolute inset-x-0 bottom-0 p-5 text-offwhite">
-                      <p className="eyebrow text-gold">{neighborhood}</p>
-                      <p className="mt-1 font-display text-[20px] md:text-[22px] leading-tight">
-                        Primary Suite No. {i + 1}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Process strip */}
       <section className="bg-navy text-offwhite section-pad">
-        <div className="container mx-auto grid md:grid-cols-4 gap-10">
-          {[
-            { step: "01", title: "Consult", body: "A designer visits your home within 48 hours." },
-            { step: "02", title: "Design", body: "3D renderings + fixed fixture schedule in 7 days." },
-            { step: "03", title: "Build", body: "Dedicated crews, typical build in 4 weeks." },
-            { step: "04", title: "Delight", body: "Walkthrough, 5-year craftsmanship warranty." },
-          ].map((p) => (
-            <div key={p.step}>
-              <p className="font-display text-[52px] text-gold leading-none">
-                {p.step}
-              </p>
-              <h3 className="mt-4 text-offwhite">{p.title}</h3>
-              <p className="mt-2 text-body text-offwhite/70">{p.body}</p>
-            </div>
-          ))}
+        <div className="container mx-auto">
+          <div className="max-w-2xl">
+            <p className="eyebrow text-gold">How It Works</p>
+            <h2 className="mt-3 text-offwhite">
+              Four steps. Zero surprises. One stunning bath.
+            </h2>
+          </div>
+          <div className="mt-12 grid md:grid-cols-4 gap-10">
+            {[
+              {
+                step: "01",
+                title: "Consult",
+                body: "A senior designer visits within 48 hours, measures, and listens.",
+              },
+              {
+                step: "02",
+                title: "Design",
+                body: "3D renderings + fixed fixture schedule emailed within 7 days.",
+              },
+              {
+                step: "03",
+                title: "Build",
+                body: "Dedicated crew, daily photo updates, typical 4-week build.",
+              },
+              {
+                step: "04",
+                title: "Delight",
+                body: "Walkthrough + 5-year craftsmanship warranty in writing.",
+              },
+            ].map((p) => (
+              <div key={p.step}>
+                <p className="font-display text-[52px] text-gold leading-none">
+                  {p.step}
+                </p>
+                <h3 className="mt-4 text-offwhite">{p.title}</h3>
+                <p className="mt-2 text-body text-offwhite/70">{p.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Reverse-direction marquee */}
-      {marqueeBottom.length > 0 && (
-        <ImageMarquee images={marqueeBottom} reverse height={260} />
+      {/* Visual breath: marquee strip */}
+      {marquee.length > 0 && (
+        <ImageMarquee images={marquee} reverse height={260} />
       )}
 
-      {/* CTA */}
+      {/* Testimonials */}
+      <Testimonials />
+
+      {/* FAQ */}
+      <FAQ />
+
+      {/* Final CTA — cannot-miss banner */}
       <section className="section-pad bg-offwhite">
         <div className="container mx-auto">
           <div className="rounded-card bg-navy text-offwhite px-8 md:px-16 py-20 text-center relative overflow-hidden">
             <div
-              className="absolute inset-0 opacity-25 bg-cover bg-center"
-              style={{ backgroundImage: heroImage ? `url(${heroImage})` : undefined }}
+              className="absolute inset-0 opacity-30 bg-cover bg-center"
+              style={{
+                backgroundImage: heroImage ? `url(${heroImage})` : undefined,
+              }}
             />
+            <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/60 to-navy/85" />
             <div className="relative">
-              <p className="eyebrow text-gold">Transform in 4 weeks</p>
-              <h2 className="mt-4 max-w-3xl mx-auto">
-                Your quote, answered in under two hours — no hidden fees, no
-                pushy sales.
+              <p className="eyebrow text-gold">Ready in 4 Weeks</p>
+              <h2 className="mt-4 max-w-3xl mx-auto text-offwhite">
+                Free design consult. Fixed quote in 2 hours. Zero hard sell.
               </h2>
-              <div className="mt-10 flex justify-center">
+              <p className="mt-5 max-w-2xl mx-auto text-body text-offwhite/75">
+                We only take on 6 builds per month so every suite gets the
+                lead designer&apos;s attention. Booking now for next month.
+              </p>
+              <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
                 <ButtonLink href="/quote" withArrow>
                   Start My Quote
                 </ButtonLink>
+                <a
+                  href="tel:+13055550134"
+                  className="text-offwhite text-caption uppercase tracking-cta font-bold hover:text-gold transition-colors"
+                >
+                  or call (305) 555-0134
+                </a>
               </div>
+              <p className="mt-6 text-caption text-offwhite/55">
+                Licensed CGC1531882 · $2M insured · 240+ five-star reviews
+              </p>
             </div>
           </div>
         </div>
       </section>
+
+      <StickyCTA />
     </>
   );
 }
