@@ -10,7 +10,7 @@ export function getUploadedImages(): string[] {
       .readdirSync(dir)
       .filter((f) => IMAGE_EXT.test(f) && !f.startsWith("."))
       .sort()
-      .map((f) => `/uploads/${f}`);
+      .map((f) => `/uploads/${encodeURIComponent(f)}`);
   } catch {
     return [];
   }
