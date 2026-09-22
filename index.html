@@ -4,23 +4,119 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SoFlo Bathroom Remodel — Fort Lauderdale Bathroom Renovation</title>
+<meta name="description" content="Fort Lauderdale bathroom remodeling — primary suites, spa wet rooms, walk-in showers, custom vanities. Serving Broward, Miami-Dade and Palm Beach since 2010." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
+<style>
+  /* Boot splash — hidden once the app mounts */
+  #boot { position: fixed; inset: 0; display: grid; place-items: center;
+          background: var(--bg, #F5EFE6); font: 500 14px/1.4 "Manrope", system-ui, sans-serif;
+          color: var(--muted, #8B7D6A); letter-spacing: .12em; text-transform: uppercase;
+          z-index: 9999; transition: opacity .3s ease; }
+  #boot.done { opacity: 0; pointer-events: none; }
+  #boot .err { max-width: 640px; padding: 24px; background: #fff; border-radius: 12px;
+               box-shadow: 0 6px 24px rgba(0,0,0,.08); color: #7f1d1d; text-transform: none;
+               letter-spacing: normal; font-family: ui-monospace, monospace; font-size: 13px;
+               white-space: pre-wrap; word-break: break-word; }
+</style>
 </head>
 <body>
 <div id="root"></div>
+<div id="boot">Loading…</div>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
 
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script type="text/babel" src="widgets.jsx"></script>
-<script type="text/babel" src="chrome.jsx"></script>
-<script type="text/babel" src="pages-home.jsx"></script>
-<script type="text/babel" src="pages-rest.jsx"></script>
-<script type="text/babel" src="app.jsx"></script>
+<script>
+/*
+ * Sequential JSX loader.
+ *
+ * We do NOT use <script type="text/babel" src="…"> tags because Babel Standalone
+ * fetches external scripts in parallel and executes them in network-response
+ * order, not DOM order. That breaks cross-file globals (Header, HomePage,
+ * useTweaks, …) because app.jsx can run before the files that define them.
+ *
+ * Instead we fetch every JSX file in order, concatenate the sources,
+ * transform once, and eval in the global scope. Same result as inline
+ * <script type="text/babel"> blocks — but guaranteed order and one Babel
+ * pass instead of six.
+ */
+(async () => {
+  const boot = document.getElementById('boot');
+  const files = [
+    'tweaks-panel.jsx',
+    'widgets.jsx',
+    'chrome.jsx',
+    'pages-home.jsx',
+    'pages-rest.jsx',
+    'app.jsx',
+  ];
+
+  const showError = (label, err) => {
+    console.error('[loader]', label, err);
+    boot.innerHTML =
+      '<div class="err"><strong>App failed to load — ' + label + '</strong>\n\n' +
+      (err && err.stack ? err.stack : String(err)) + '</div>';
+  };
+
+  // Wait for React + Babel to be present (defensive; scripts above are sync
+  // so this normally resolves immediately).
+  const ready = () =>
+    typeof window.React !== 'undefined' &&
+    typeof window.ReactDOM !== 'undefined' &&
+    typeof window.Babel !== 'undefined';
+  for (let i = 0; i < 100 && !ready(); i++) {
+    await new Promise(r => setTimeout(r, 20));
+  }
+  if (!ready()) {
+    return showError('CDN scripts', new Error(
+      'React/ReactDOM/Babel did not load. Check network / ad-blockers.'
+    ));
+  }
+
+  let sources;
+  try {
+    // Cache-bust so redeploys always show latest code.
+    const v = Date.now();
+    sources = await Promise.all(
+      files.map(f =>
+        fetch(f + '?v=' + v).then(r => {
+          if (!r.ok) throw new Error(f + ' → ' + r.status);
+          return r.text();
+        })
+      )
+    );
+  } catch (err) {
+    return showError('fetching JSX files', err);
+  }
+
+  let transformed;
+  try {
+    // Wrap every file in a labelled comment so runtime errors point back to it.
+    const combined = files
+      .map((f, i) => '\n/* ===== ' + f + ' ===== */\n' + sources[i])
+      .join('\n');
+    transformed = window.Babel.transform(combined, {
+      presets: ['react'],
+      sourceType: 'script',
+    }).code;
+  } catch (err) {
+    return showError('Babel transform', err);
+  }
+
+  try {
+    // Indirect eval so declarations land on the global scope, matching what
+    // <script type="text/babel"> would do.
+    (0, eval)(transformed);
+    boot.classList.add('done');
+    setTimeout(() => boot.remove(), 400);
+  } catch (err) {
+    return showError('running app', err);
+  }
+})();
+</script>
 </body>
 </html>
